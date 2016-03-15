@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/blog/2016/03/15/my-first-blog/</loc>
+    <loc>http://keepmemoryalive.github.io/blog/2016/03/15/my-second-blog/</loc>
+    <lastmod>2016-03-15T10:56:57+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://keepmemoryalive.github.io/blog/2016/03/15/my-first-blog/</loc>
     <lastmod>2016-03-15T10:32:49+08:00</lastmod>
   </url>
   <url>
-    <loc>http://yoursite.com/blog/archives/</loc>
+    <loc>http://keepmemoryalive.github.io/blog/archives/</loc>
   </url>
   <url>
-    <loc>http://yoursite.com/</loc>
+    <loc>http://keepmemoryalive.github.io/</loc>
   </url>
 </urlset>
