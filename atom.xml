@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://keepmemoryalive.github.io/atom.xml" rel="self"/>
-  <link href="http://keepmemoryalive.github.io/"/>
-  <updated>2016-03-15T13:45:24+08:00</updated>
-  <id>http://keepmemoryalive.github.io/</id>
+  <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
+  <link href="http://blog.youngxiao.com/"/>
+  <updated>2016-03-15T14:05:21+08:00</updated>
+  <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
     
@@ -14,37 +14,46 @@
 
   
   <entry>
+    <title type="html"><![CDATA[My Five Blog]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-five-blog/"/>
+    <updated>2016-03-15T13:57:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-five-blog</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[My Four Blog]]></title>
-    <link href="http://keepmemoryalive.github.io/blog/2016/03/15/my-four-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
     <updated>2016-03-15T13:45:13+08:00</updated>
-    <id>http://keepmemoryalive.github.io/blog/2016/03/15/my-four-blog</id>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[My Third Blog]]></title>
-    <link href="http://keepmemoryalive.github.io/blog/2016/03/15/my-third-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/"/>
     <updated>2016-03-15T12:22:24+08:00</updated>
-    <id>http://keepmemoryalive.github.io/blog/2016/03/15/my-third-blog</id>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[My Second Blog]]></title>
-    <link href="http://keepmemoryalive.github.io/blog/2016/03/15/my-second-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/"/>
     <updated>2016-03-15T10:56:57+08:00</updated>
-    <id>http://keepmemoryalive.github.io/blog/2016/03/15/my-second-blog</id>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[My First Blog]]></title>
-    <link href="http://keepmemoryalive.github.io/blog/2016/03/15/my-first-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
     <updated>2016-03-15T10:32:49+08:00</updated>
-    <id>http://keepmemoryalive.github.io/blog/2016/03/15/my-first-blog</id>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
