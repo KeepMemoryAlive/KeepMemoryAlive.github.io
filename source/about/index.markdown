@@ -7,8 +7,6 @@ sharing: true
 footer: true
 ---
 
-# 关于我 #
-
 - 职业：游戏开发--服务器开发
 
 - 工作经历：就职于tencent

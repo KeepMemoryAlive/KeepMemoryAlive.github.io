@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://blog.youngxiao.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: https://www.google.com/search
+title: coding
+subtitle: one coder's blog
+author: young
+simple_search: https://www.baidu.com/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
