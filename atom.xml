@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://keepmemoryalive.github.io/atom.xml" rel="self"/>
   <link href="http://keepmemoryalive.github.io/"/>
-  <updated>2016-03-15T12:22:36+08:00</updated>
+  <updated>2016-03-15T13:45:24+08:00</updated>
   <id>http://keepmemoryalive.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Four Blog]]></title>
+    <link href="http://keepmemoryalive.github.io/blog/2016/03/15/my-four-blog/"/>
+    <updated>2016-03-15T13:45:13+08:00</updated>
+    <id>http://keepmemoryalive.github.io/blog/2016/03/15/my-four-blog</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My Third Blog]]></title>
