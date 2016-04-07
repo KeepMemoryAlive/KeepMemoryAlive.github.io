@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-03-15T19:47:29+08:00</updated>
+  <updated>2016-04-07T19:31:33+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress+GitHub 搭建个人博客]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/"/>
+    <updated>2016-03-15T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog</id>
+    <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
+
+<p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
+
+<h1>安装依赖工具</h1>
+
+<p><strong>Git：</strong></p>
+
+<blockquote><p><a href="http://msysgit.googlecode.com/files/Git-1.8.1.2-preview20130201.exe">http://msysgit.googlecode.com/files/Git-1.8.1.2-preview20130201.exe</a></p></blockquote>
+
+<p><strong>Ruby：</strong></p>
+
+<blockquote><p><a href="http://files.rubyforge.vm.bytemark.co.uk/rubyinstaller/rubyinstaller-1.9.3-p429.exe">http://files.rubyforge.vm.bytemark.co.uk/rubyinstaller/rubyinstaller-1.9.3-p429.exe</a></p></blockquote>
+
+<p><strong>DevKit：</strong></p>
+
+<blockquote><p><a href="http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe">http://cloud.github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe</a></p></blockquote>
+
+<p><strong>Python：</strong></p>
+
+<blockquote><p> <a href="http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi">http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi</a></p></blockquote>
+
+<ul>
+<li><p>安装Git：
+Windows下安装Git很简单，一路next就可以了。</p></li>
+<li><p>安装Ruby：
+Ruby的安装也是一路next就可以，不过记得勾选“Add Ruby executables to your PATH”，<strong>将Ruby的执行路径加入到环境变量中</strong>，如果忘记勾选，也可以手动设置。安装完后可以在命令提示符中输入ruby –version 来确认是否安装成功。</p></li>
+<li><p>安装DevKit：
+DevKit下载下来的是一个自压缩文件，我们将其解压到D:/DevKit，有两点需要注意：</p>
+
+<ol>
+<li>解压目录中没有有中文和空格；</li>
+<li>必须先安装Ruby，而且Ruby需要是RubyInstallser包安装。</li>
+</ol>
+
+
+<p>  解压DevKit后，在命令行输入以下命令来进行安装：</p>
+
+<pre><code>  d:   
+  cd DevKit  
+  ruby dk.rb init   
+  ruby dk.rb install  
+</code></pre></li>
+<li><p>安装Python：
+安装Python,也是一路next就可以</p></li>
+</ul>
+
+
+<h1>配置octopress</h1>
+
+<ul>
+<li><p>通过Git Shell 进入bash界面，把octopress代码拉到本地<br/>
+  <code>git clone git://github.com/imathis/octopress.git octopress</code></p></li>
+<li><p>然后安装Octopress的依赖项，安装依赖项需要用到Ruby的gem，使用下面的命令可以更换gem的更新源，使用国内的淘宝镜像速度相对快点。</p>
+
+<blockquote><pre><code>gem sources -a https://ruby.taobao.org/  
+gem sources -r http://rubygems.org/  
+gem sources -l  
+</code></pre></blockquote></li>
+<li><p>修改Octopress目录下的Gemfile文件，将第一行的<a href="http://rubygems.org/">http://rubygems.org/</a> 修改为<a href="http://ruby.taobao.org/">http://ruby.taobao.org/</a></p></li>
+<li><p>在git bash界面进入到Octopress目录，输入下面命令进行依赖项的安装</p></li>
+</ul>
+
+
+<blockquote><p>  gem install bundler<br/>
+  bundle install<br/>
+  rake install</p></blockquote>
+
+<p><strong>到此 octopress就已经配置OK！</strong></p>
+
+<h1>将Octopress发布到Github #</h1>
+
+<ul>
+<li><p>首先在自己的github下新建一个<code>https://github.com/username/username.github.io</code>的repository. <strong>注意username替换为自己的github帐号名</strong></p></li>
+<li><p>进入octopress目录，执行：<br/>
+  <code>rake setup_github_pages</code><br/>
+  这个命令的功能是 octopress的自带的功能，其实就是执行octopress/Rakefile里的命令。<br/>
+  执行后，会要求你输入上一条的repository的地址。</p>
+
+<p>  这个命令背后会做这几个事情：</p>
+
+<pre><code>  1. 把git://github.com/imathis/octopress.git这个远程库的别名从origin改为octopress  
+  2. 把https://github.com/username/username.github.io这个远程库作为默认的origin远程库  
+  3. 把本地octopress目录切换到source分支  
+  4. 新建octopress/_deploy目录，也设置为另一个git库且是master分支，对应的远程库也是https://github.com/username/username.github.io 
+</code></pre></li>
+<li><p>接着执行<code>rake generate</code>，该命令会真正生成blog的页面文件。</p></li>
+<li><p>再执行<code>rake deploy</code>，它的作用是: <br/>
+  把生成的页面拷贝到deploy目录，并且把他们push到对应的远程库里去，如果发现push失败，则需要我们手动到deploy去把git对应关系建立好 <code>“git branch --set-upstream master origin/master”</code>,<br/>
+  再执行rake deploy,就成功了~<br/>
+  到这里，blog所需要的网页文件已经上传到了github对应库的<strong>master分支</strong>。</p></li>
+<li><p>最后我们需要把octopress工程目录，也就是我们生成blog的源目录文件，提交上传</p>
+
+<pre><code>  git add .  
+  git commit -m 'your message'
+  git push origin source  
+</code></pre>
+
+<p>  需要注意的是，<strong>这之前我们在github上是没有source分支的</strong>，执行“git push origin source”时，git发现远程库没有对应的分支，就会自动创建。</p></li>
+</ul>
+
+
+<h1>最后总结下 ：</h1>
+
+<ul>
+<li><p>1、我们的工程目录是octopress，它是source分支，对应github上的也是source分支，它里面的内容是生成blog的代码源文件。</p></li>
+<li><p>2、octopress/_deploy目录是blog网站文件的目录，访问网站需要的文件都在这个目录里，它对应github上的master分支，所以要想更新blog，内容必须提交到master分支才会有效。</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git基础知识]]></title>
