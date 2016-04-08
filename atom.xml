@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-04-08T17:10:34+08:00</updated>
+  <updated>2016-04-08T17:12:57+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -48,6 +48,9 @@
     <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
 <p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
+
+<!-- more -->
+
 
 <h1>安装依赖工具</h1>
 
