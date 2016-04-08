@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-04-07T19:31:33+08:00</updated>
+  <updated>2016-04-08T17:10:34+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -138,7 +138,14 @@ gem sources -l
     <content type="html"><![CDATA[<h1>Git原理</h1>
 
 <ol>
-<li><p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p></li>
+<li>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</li>
+</ol>
+
+
+<!-- more -->
+
+
+<ol>
 <li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
 <li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
 

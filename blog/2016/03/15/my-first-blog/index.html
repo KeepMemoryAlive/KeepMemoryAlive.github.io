@@ -9,8 +9,7 @@
   <meta name="author" content="young">
 
   
-  <meta name="description" content="Git原理 Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于分布式，每个人的电脑上都是一个完整的版本库，所以使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库。
-工作区有一个隐藏目录.git，这就是Git在本机的版本库。 &hellip;">
+  <meta name="description" content="Git原理 Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于分布式，每个人的电脑上都是一个完整的版本库，所以使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库。 工作区有一个隐藏目录.git，这就是Git在本机的版本库。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,7 +88,14 @@
 <div class="entry-content"><h1>Git原理</h1>
 
 <ol>
-<li><p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p></li>
+<li>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</li>
+</ol>
+
+
+<!-- more -->
+
+
+<ol>
 <li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
 <li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
 
