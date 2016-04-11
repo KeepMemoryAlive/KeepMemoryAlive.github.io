@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Third Blog - coding</title>
+  <title>POJ 2796 单调栈 - coding</title>
   <meta name="author" content="young">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0) 分析： （序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。 所以对于题目，我们只要对于每个元素，计算出“以这个元素作为序列最小值时， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">My Third Blog</h1>
+      <h1 class="entry-title">POJ 2796 单调栈</h1>
     
     
       <p class="meta">
@@ -86,7 +85,118 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
+
+<p><strong>分析：</strong></p>
+
+<p>（序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。</p>
+
+<p>所以对于题目，我们只要对于<strong>每个元素，计算出“以这个元素作为序列最小值时，得到的最大乘积”</strong>，然后比较，取出最大值即可。</p>
+
+<p>那问题的关键就在于，怎么得到 <strong>“以该元素作为序列最小值时的最长序列”，即从该元素开始像两边延伸到最大限度</strong></p>
+
+<!-- more -->
+
+
+<p>这个问题的特性就可以用单调栈来解决：</p>
+
+<p><strong>单调栈:顾名思义就是在入栈时遵循单调原则，可以求出一个元素向左所能扩展到的最大长度，并不是说在这一段区间内是单调的，而是保证在该区间内该元素一定是最大或最小。</strong></p>
+
+<p>我们有如下的性质：</p>
+
+<ol>
+<li>如果当前元素大于前一元素，那么前一元素能扩展到当前元素，同时说明前面的数对当前元素来说是没有贡献的</li>
+<li>如果当前元素小于等于前一个元素，那么前面至少有一个元素不能扩展到当前元素的位置，那么这些不能继续扩展的元素的存在显的没有什么意义了，不妨删除它。</li>
+</ol>
+
+
+<p>我们得到两条结论：</p>
+
+<p>1.一旦一个元素已经进入栈中那么这个元素向左扩展的位置就确定下来了.</p>
+
+<p>2.一旦一个元素出栈被弹出栈,那么这个元素向右扩展的位置也确定下来了.</p>
+
+<p>附本题代码：</p>
+
+<pre><code>#include&lt;iostream 
+#include&lt;stack&gt;
+#include&lt;stdio.h&gt;
+using namespace std;
+#define maxx 110000
+__int64 str[maxx],t[maxx];
+struct node
+{
+    __int64 num,pre,next;//num记录数值，pre记录向前延伸多少个，next记录向后延伸多少个,k记录本身所处的位置
+    __int64 k;
+};
+int main()
+{
+    int n;
+    while(scanf("%d",&amp;n)&gt;0)
+    {
+        stack&lt;node&gt;Q;
+        node tmp;
+        __int64 ans=-100,sum=-100,num;
+        str[0]=0;
+        for(__int64 i=1;i&lt;=n;i++)
+        {
+            scanf("%I64d",&amp;t[i]);
+            if(i==1)
+                str[i]=t[i];
+            else
+                str[i]=str[i-1]+t[i];
+        }
+        tmp.num=t[1];
+        tmp.pre=1;
+        tmp.next=1;
+        tmp.k=1;
+        Q.push(tmp);
+        __int64 x=0,y=0;
+        for(__int64 i=2;i&lt;=n;i++)
+        {
+            node tmp1;
+            tmp1.num=t[i];
+            tmp1.pre=tmp1.next=1;
+            tmp1.k=i;
+            while(!Q.empty()&amp;&amp;tmp1.num&lt;=Q.top().num)
+            {
+                tmp=Q.top();
+                Q.pop();
+                if(!Q.empty())
+                    Q.top().next+=tmp.next;
+                tmp1.pre+=tmp.pre;
+                ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
+                if(ans&gt;=sum)
+                {
+                    sum=ans;
+                    x=tmp.k-tmp.pre+1;
+                    y=tmp.k+tmp.next-1;
+                }
+            }
+            Q.push(tmp1);
+        }
+
+        while(!Q.empty())
+        {
+            tmp=Q.top();
+            Q.pop();
+            if(!Q.empty())
+                Q.top().next+=tmp.next;
+            ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
+            if(ans&gt;=sum)
+            {
+                sum=ans;
+                x=tmp.k-tmp.pre+1;
+                y=tmp.k+tmp.next-1;
+            }
+        }
+
+        if(n==0)x=y=0;
+        printf("%I64d\n%I64d %I64d\n",sum,x,y);
+    }
+    return 0;
+}
+</code></pre>
 </div>
 
 
@@ -104,6 +214,12 @@
 
 <time class='entry-date' datetime='2016-03-15T12:22:24+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:22 pm</span></time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/algorithm/'>algorithm</a>
+  
+</span>
 
 
     </p>
@@ -145,7 +261,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2016/03/15/my-third-blog/">My Third Blog</a>
+        <a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a>
       </li>
     
       <li class="post">
@@ -161,7 +277,8 @@
 <section>
  <h1>Categories</h1>
  <ul id="categories">
-  <li class='category'><a href='/blog/categories/git/'>git (2)</a></li>
+  <li class='category'><a href='/blog/categories/algorithm/'>algorithm (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (2)</a></li>
 
  </ul>
 </section>

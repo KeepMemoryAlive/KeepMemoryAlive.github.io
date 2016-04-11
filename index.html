@@ -131,7 +131,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-third-blog/">My Third Blog</a></h1>
+      <h1 class="entry-title"><a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a></h1>
     
     
       <p class="meta">
@@ -147,9 +147,22 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
+
+<p><strong>分析：</strong></p>
+
+<p>（序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。</p>
+
+<p>所以对于题目，我们只要对于<strong>每个元素，计算出“以这个元素作为序列最小值时，得到的最大乘积”</strong>，然后比较，取出最大值即可。</p>
+
+<p>那问题的关键就在于，怎么得到 <strong>“以该元素作为序列最小值时的最长序列”，即从该元素开始像两边延伸到最大限度</strong></p>
+
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/03/15/my-third-blog/">阅读更多 →</a>
+    </footer>
   
 
 
@@ -251,7 +264,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2016/03/15/my-third-blog/">My Third Blog</a>
+        <a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a>
       </li>
     
       <li class="post">
@@ -267,7 +280,8 @@
 <section>
  <h1>Categories</h1>
  <ul id="categories">
-  <li class='category'><a href='/blog/categories/git/'>git (2)</a></li>
+  <li class='category'><a href='/blog/categories/algorithm/'>algorithm (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (2)</a></li>
 
  </ul>
 </section>
