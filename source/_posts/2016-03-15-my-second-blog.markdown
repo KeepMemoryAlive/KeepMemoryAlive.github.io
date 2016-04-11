@@ -10,6 +10,8 @@ categories: Git
 
 **2. GitHub是用来托管blog网页的网站**  
 
+<!-- more -->
+
 # 安装依赖工具  #
 
 **Git：**
