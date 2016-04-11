@@ -4,6 +4,9 @@ title: "Octopress+GitHub 搭建个人博客"
 date: 2016-03-15 10:56:57 +0800
 comments: true
 categories: Git
+tags: [Git, Octopress]
+keywords: octopress, git, 博客自定义
+description: 搭建个人博客
 ---
 
 **1. Octopress是博客工具，一套用来生成blog的系统。**  

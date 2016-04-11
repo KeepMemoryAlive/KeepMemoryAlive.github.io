@@ -4,6 +4,9 @@ title: "git基础知识"
 date: 2016-03-15 10:32:49 +0800
 comments: true
 categories: Git
+tags: [Git, Octopress]
+keywords: octopress, git, 博客自定义
+description: git基础知识
 ---
 
 # Git原理 #
