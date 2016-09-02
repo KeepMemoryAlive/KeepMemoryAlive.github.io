@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-04-11T18:27:10+08:00</updated>
+  <updated>2016-09-02T15:44:14+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -18,15 +18,6 @@
     <link href="http://blog.youngxiao.com/blog/2016/03/15/my-five-blog/"/>
     <updated>2016-03-15T13:57:57+08:00</updated>
     <id>http://blog.youngxiao.com/blog/2016/03/15/my-five-blog</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[My Four Blog]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
-    <updated>2016-03-15T13:45:13+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
@@ -267,6 +258,30 @@ gem sources -l
 <li><p>1、我们的工程目录是octopress，它是source分支，对应github上的也是source分支，它里面的内容是生成blog的代码源文件。</p></li>
 <li><p>2、octopress/_deploy目录是blog网站文件的目录，访问网站需要的文件都在这个目录里，它对应github上的master分支，所以要想更新blog，内容必须提交到master分支才会有效。</p></li>
 </ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress怎么添加文章&markdown语法]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
+    <updated>2016-03-15T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
+    <content type="html"><![CDATA[<h1>添加文章</h1>
+
+<ol>
+<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
+注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
+
+<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
+<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
+<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
+<li><p>最后保存文章的code文件，提交到source目录下</p>
+
+<p>git add .<br/>
+git commit -m “your message”<br/>
+git push origin source</p></li>
+</ol>
 
 ]]></content>
   </entry>
