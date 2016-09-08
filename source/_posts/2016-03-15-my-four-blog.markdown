@@ -14,6 +14,8 @@ keywords: octopress, git,
 
 	可以用*markdownpad*直接编译这个文件，来写blog内容。  
 
+<!-- more -->
+
 2.	每次写完blog后，需要执行rake generate，这时生成真正的网页文件。
 
 3.	然后再执行命令rake deploy 就可以将本地的内容发布到Github上。
