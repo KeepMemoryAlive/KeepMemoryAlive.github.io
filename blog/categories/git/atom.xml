@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-09-02T15:44:14+08:00</updated>
+  <updated>2016-09-08T16:50:28+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -134,7 +134,7 @@ gem sources -l
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Octopress怎么添加文章&markdown语法]]></title>
+    <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
     <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
     <updated>2016-03-15T10:56:57+08:00</updated>
     <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
