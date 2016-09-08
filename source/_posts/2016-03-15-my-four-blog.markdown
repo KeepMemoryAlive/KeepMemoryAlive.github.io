@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "octopress怎么添加文章&markdown语法"
+title: "octopress怎么添加文章"
 date: 2016-03-15 10:56:57 +0800
 comments: true
 categories: Git
