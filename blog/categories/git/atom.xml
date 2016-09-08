@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-09-08T17:46:26+08:00</updated>
+  <updated>2016-09-08T17:48:44+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -145,6 +145,13 @@ gem sources -l
 注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
 
 <p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
+</ol>
+
+
+<!-- more -->
+
+
+<ol>
 <li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
 <li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
 <li><p>最后保存文章的code文件，提交到source目录下</p>
