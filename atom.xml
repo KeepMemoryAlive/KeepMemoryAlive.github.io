@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2016-09-09T17:30:59+08:00</updated>
+  <updated>2016-09-09T17:33:46+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.youngxiao.com/blog/2016/09/02/smoba-tech/"/>
     <updated>2016-09-02T15:49:25+08:00</updated>
     <id>http://blog.youngxiao.com/blog/2016/09/02/smoba-tech</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/lockstep.png" alt="" /></p>
 ]]></content>
   </entry>
   
