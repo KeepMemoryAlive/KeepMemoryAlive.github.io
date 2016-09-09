@@ -7,7 +7,7 @@ categories: words
 tags: [生活]
 keywords: 唠叨, 点滴, 
 ---
-	曾经在读书记录的日记吧，记录下，留个纪念~
+	曾经在读书时记录的日记，记录下，留个纪念~
 
 <!-- more -->
 ## ACMteam成立 ##
