@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/09/02/smoba-tech/</loc>
-    <lastmod>2016-09-02T15:49:25+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/03/15/my-five-blog/</loc>
-    <lastmod>2016-03-15T13:57:57+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/</loc>
-    <lastmod>2016-03-15T12:22:24+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/</loc>
-    <lastmod>2016-03-15T10:56:57+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/</loc>
-    <lastmod>2016-03-15T10:56:57+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/</loc>
-    <lastmod>2016-03-15T10:32:49+08:00</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/archives/</loc>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/</loc>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/about/</loc>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/categories/git/</loc>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/categories/algorithm/</loc>
-  </url>
-  <url>
-    <loc>http://blog.youngxiao.com/blog/categories/words/</loc>
-  </url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2020/03/09/cpuinfo/</loc>
+<lastmod>2020-03-09T19:23:49+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/09/02/smoba-tech/</loc>
+<lastmod>2016-09-02T15:49:25+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/03/15/my-five-blog/</loc>
+<lastmod>2016-03-15T13:57:57+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/</loc>
+<lastmod>2016-03-15T12:22:24+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/</loc>
+<lastmod>2016-03-15T10:56:57+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/</loc>
+<lastmod>2016-03-15T10:56:57+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/</loc>
+<lastmod>2016-03-15T10:32:49+08:00</lastmod>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/archives/</loc>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/</loc>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/about/</loc>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/categories/git/</loc>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/categories/algorithm/</loc>
+</url>
+<url>
+<loc>http://blog.youngxiao.com/blog/categories/words/</loc>
+</url>
 </urlset>
