@@ -85,7 +85,7 @@
   </header>
 
 
-<div class="entry-content"><h1>背景:</h1>
+<div class="entry-content"><h2>背景:</h2>
 
 <p>一台linux服务器，多核cpu，部署多个进程</p>
 
@@ -99,6 +99,42 @@
 
 <!-- more -->
 
+
+<h2>cpu使用率：</h2>
+
+<p>cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的时间.</p>
+
+<p><strong>单进程单线程同时只能在一个cpu上执行，所以它最多100%。</strong></p>
+
+<p>就算它在多个核上调度执行，比如2核 1s时间内进程在cpu0 执行0.5s,在cpu1执行0.5s,总使用率还是100%.</p>
+
+<p><strong>多线程可以在多个核上同时执行，则使用率可以达到N*100%, N指几个线程</strong></p>
+
+<p>从cpu使用率的定义得知：使用率越高代表进程越繁忙。</p>
+
+<h2>现代服务器的cpu构架：</h2>
+
+<p><strong>非统一内存访问架构</strong>（英语：Non-uniform memory access，简称NUMA）是一种为<strong>多处理器</strong>的电脑设计的内存架构，内存访问时间取决于内存相对于处理器的位置。在NUMA下，处理器访问它自己的本地内存的速度比非本地内存（内存位于另一个处理器，或者是处理器之间共享的内存）快一些。</p>
+
+<p>最初的架构是这样的：
+<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/no_numa.png" alt="" /></p>
+
+<p>随着从“拼频率”到“拼核心数”的转变，越来越多的核心被尽可能地塞进了同一块芯片上，各个核心对于内存带宽的争抢访问成为了瓶颈.</p>
+
+<p> NUMA在这种情况下发展而来：通过把 多个CPU和部分RAM 当做一个 node，整体分为多个node, CPU 会优先访问距离近的 RAM,cpu跨node访问消耗更大。</p>
+
+<p> <img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/numa_node.png" alt="" /></p>
+
+<p>注意图中这里的一块cpu 是一个物理芯片，一般有多个core,而不是单个cpu core。</p>
+
+<p><strong>NUMA相关的几个概念有node、socket、core和thread。一个node里可以有多个Socket, Socket是一个物理上的概念，指的是主板上的cpu插槽(即一个物理芯片), 一个socket拥有多个物理core,core即一个独立的硬件执行单元。Thread就是超线程的概念，是一个逻辑cpu，共享core上的执行单元，一个物理core上可以有2个Thread，即2个逻辑cpu.</strong></p>
+
+<p>所以现在的cpu层级是这样的：
+<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/numa.png" alt="" /></p>
+
+<p>从图中可以看出：这里的coreP1 coreP2&hellip;是逻辑cpu 即超线程cpu, L1和L2缓存都是每个物理CPU一个, L1缓存有分为L1i和L1d，分别用来存储指令和数据，L2缓存是不区分指令和数据的。<strong>L3缓存是同socket的多个物理核心共用一个。不同socket的cpu是不共用任何cache的</strong>。</p>
+
+<p>常用命令: numactl &ndash;hardware, numactl &ndash;show, numastat等</p>
 </div>
 
 
