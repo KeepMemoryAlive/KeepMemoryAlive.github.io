@@ -5,15 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>coding</title>
+  <title>古老的面试题 - coding</title>
   <meta name="author" content="young">
 
   
-  <meta name="description" content="背景: 一台linux服务器，多核cpu，部署多个进程 这台服务器的cpu压力是怎样的？
-单个进程的cpu使用率是怎么算的？
-多个核的使用率是均衡的吗？
-哪些原因会影响各个核使用率？ ">
-  
+  <meta name="description" content="面试">
+  <meta name="keywords" content="面试">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -21,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.youngxiao.com/">
+  <link rel="canonical" href="http://blog.youngxiao.com/blog/2009/05/06/interview/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="coding" type="application/atom+xml">
@@ -67,282 +64,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2020/03/09/cpuinfo/">Linux 多核cpu负载分析</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2020-03-09T19:23:49+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2020</span></span> <span class='time'>7:23 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>背景:</h2>
-
-<p>一台linux服务器，多核cpu，部署多个进程</p>
-
-<ul>
-<li>这台服务器的cpu压力是怎样的？</li>
-<li>单个进程的cpu使用率是怎么算的？</li>
-<li>多个核的使用率是均衡的吗？</li>
-<li>哪些原因会影响各个核使用率？</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2020/03/09/cpuinfo/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/09/02/smoba-tech/">Lockstep</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-09-02T15:49:25+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>3:49 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/lockstep.png" alt="" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-five-blog/">大学日记</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-15T13:57:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:57 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><pre><code>曾经在读书时记录的日记，记录下，留个纪念~
-</code></pre>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/15/my-five-blog/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-15T12:22:24+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>12:22 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
-
-<p><strong>分析：</strong></p>
-
-<p>（序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。</p>
-
-<p>所以对于题目，我们只要对于<strong>每个元素，计算出“以这个元素作为序列最小值时，得到的最大乘积”</strong>，然后比较，取出最大值即可。</p>
-
-<p>那问题的关键就在于，怎么得到 <strong>“以该元素作为序列最小值时的最长序列”，即从该元素开始像两边延伸到最大限度</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/15/my-third-blog/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-second-blog/">Octopress+GitHub 搭建个人博客</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-15T10:56:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:56 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
-
-<p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/15/my-second-blog/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-four-blog/">Octopress怎么添加文章</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-15T10:56:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:56 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>添加文章</h1>
-
-<ol>
-<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
-注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
-
-<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/15/my-four-blog/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/03/15/my-first-blog/">Git基础知识</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-03-15T10:32:49+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:32 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>Git原理</h1>
-
-<ol>
-<li>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/03/15/my-first-blog/">阅读更多 →</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/05/06/interview/">古老的面试题</a></h1>
+      <h1 class="entry-title">古老的面试题</h1>
     
     
       <p class="meta">
@@ -358,7 +85,7 @@
   </header>
 
 
-  <div class="entry-content"><p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
+<div class="entry-content"><p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
 
 <pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。
 </code></pre>
@@ -458,18 +185,52 @@ a，b继续飞行，到达B时，b给a加满油，自己返回。a继续飞行�
 
 <p>　　事实上，假设一架飞机装满油能飞行的距离设为单位1/2（则地球一圈为1），n架飞机能飞的最远的距离应该是：1/2+(n-1)/(2(n+1))，显然小于1，所以说，如果飞机只能沿一个方向飞，那么是不可能饶地球一圈的。但因为可以反方向飞，所有才有这个可能。并且2架飞机能够让饶地球的飞机多飞1/4的路程，然后这2架飞机回机场加满油后再反方向去支援，所以只需要3架飞机，耗油5箱。</p>
 </div>
-  
-  
 
 
-    </article>
+  <footer>
+    <p class="meta">
+      
   
-  <div class="pagination">
+
+<span class="byline author vcard">Posted by <span class="fn">young</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2009-05-06T19:23:49+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>7:23 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/words/'>words</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.youngxiao.com/blog/2009/05/06/interview/" data-via="" data-counturl="http://blog.youngxiao.com/blog/2009/05/06/interview/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/03/15/my-first-blog/" title="Next Post: git基础知识">git基础知识 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -514,6 +275,7 @@ a，b继续飞行，到达B时，b给a加满油，自己返回。a继续飞行�
 
   
 </aside>
+
 
     </div>
   </div>
