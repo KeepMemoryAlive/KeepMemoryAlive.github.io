@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Words | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/words/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-03-17T15:45:15+08:00</updated>
+  <updated>2020-03-17T15:51:45+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -210,7 +210,8 @@ ACM不可能是大学学习的全部，我也不可能把它当作全部！自�
 <pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。
 </code></pre>
 
-<p>　　<br/>
+<p><!-- more -->　
+　<br/>
 2、12个球一个天平，现知道只有一个和其它的重量不同，问怎样称才能用三次就找到那个球。13个呢？（注意此题并未说明那个球的重量是轻是重，所以需要仔细考虑）</p>
 
 <pre><code>答：
