@@ -9,13 +9,15 @@ keywords: cpu, 多核
 description: linux 性能分析
 ---
 
-# 背景:
+## 背景:
 一台linux服务器，多核cpu，部署多个进程
 
 - 这台服务器的cpu压力是怎样的？
 - 单个进程的cpu使用率是怎么算的？
 - 多个核的使用率是均衡的吗？
 - 哪些原因会影响各个核使用率？
+
+<!-- more -->
 
 ## cpu使用率：
 cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的时间.
@@ -52,6 +54,7 @@ cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的�
 从图中可以看出：这里的coreP1 coreP2...是逻辑cpu 即超线程cpu, L1和L2缓存都是每个物理CPU一个, L1缓存有分为L1i和L1d，分别用来存储指令和数据，L2缓存是不区分指令和数据的。**L3缓存是同socket的多个物理核心共用一个。不同socket的cpu是不共用任何cache的**。
 
 常用命令: numactl --hardware, numactl --show, numastat等
+
 
 ## 超线程(Hyper-Threading)：
 通过此技术，英特尔实现在一个实体CPU中，提供两个逻辑线程(即逻辑cpu),英特尔于2016年发布的Core i7-6950X便是将10核心的处理器，加上超线程技术，使之成为20个逻辑线程的产品。
@@ -93,7 +96,7 @@ cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的�
 **所以在同一个系统中,各个processor之间并不是完全对等的,它们所在的层级分支,决定了它们之间的关系！**
 
 每个 Scheduling Domain 其实就是根据层级划分具有相同属性的一组 cpu 的集合,不同级之间通过指针链接在一起，从而形成一种的树状的关系.
-![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/domain.png)
+![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/domain.jpg)
 
 负载平衡就是针对 Scheduling domain 的。从叶节点往上遍历。直到所有的 domain 中的负载都是平衡的。当然**对不同的 domain 会有不同的策略识别是否负载不平衡，以及不同的调度策略**。通过这样的方式，从而很好的发挥众多 cpu 的效率. 层级越高,调度的频率会越低.
 
@@ -109,5 +112,6 @@ cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的�
 domain目录里有各种参数配置文件，具体含义需要参见内核算法,比较好理解的两个参数文件：min_interval(最小的 load balance 间隔)
 max_interval(最大的 load balance 间隔),不同的domain里的参数并不相同。
 
-对于开发者而言，调整domain的算法的情况很少，我们只需要记住:**在多node多物理cpu的系统下，各个processor之间并不是对等的，所以它们的cpu使用率可能会有一定程度的不均等**,根据实际情况调整系统的层级部署，减少高层级的调度。单node单物理cpu 肯定比 多node多物理cpu 产生的调度消耗小。
+对于开发者而言，调整domain的算法的情况很少，我们只需要记住:**在多node多物理cpu的系统下，各个processor之间并不是对等的，所以它们的cpu使用率可能会有一定程度的不均等**,
 
+根据实际情况调整系统的层级部署，减少高层级的调度。单node单物理cpu 肯定比 多node多物理cpu 产生的调度消耗小。
