@@ -184,7 +184,7 @@ siblings：即同一个socket下的逻辑cpu个数
 <strong>所以在同一个系统中,各个processor之间并不是完全对等的,它们所在的层级分支,决定了它们之间的关系！</strong></p>
 
 <p>每个 Scheduling Domain 其实就是根据层级划分具有相同属性的一组 cpu 的集合,不同级之间通过指针链接在一起，从而形成一种的树状的关系.
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/domain.png" alt="" /></p>
+<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/domain.jpg" alt="" /></p>
 
 <p>负载平衡就是针对 Scheduling domain 的。从叶节点往上遍历。直到所有的 domain 中的负载都是平衡的。当然<strong>对不同的 domain 会有不同的策略识别是否负载不平衡，以及不同的调度策略</strong>。通过这样的方式，从而很好的发挥众多 cpu 的效率. 层级越高,调度的频率会越低.</p>
 
