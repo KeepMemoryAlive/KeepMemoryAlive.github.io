@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-03-24T14:21:05+08:00</updated>
+  <updated>2020-03-24T14:26:34+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -189,14 +189,14 @@ route -n命令结果更加直观</p>
 </ul>
 
 
-<p>再讨论回包过程前，需要先了解下，数据包里srcip的机制。
+<p><strong>再讨论回包过程前，需要先了解下，数据包里srcip的机制</strong>。
 通过观察api的参数，会发现无论tcp,还是udp, 都没有参数指定srcip.</p>
 
 <ul>
 <li>如果是tcp,因为是长链接强管理,五元组是确定的 (srcip,srcport,dstip,dstport,tcp),所以srcip一定是A.</li>
 <li>如果是udp,udp程序在收包前会bind ip+port，<strong>注意一个socket只能bind一个ip+port</strong>,
-如果bind了具体的ip(非0.0.0.0),则通过改socket回包,srcip则一定是对应bind的ip.</li>
-<li><strong>如果是udp,且bind 0.0.0.0,如果本机有多个ip地址, 则回包时,srcip的选择由内核路由结果得出，会选择和路有结果相近(同网段)的ip地址</strong></li>
+如果bind了具体的ip(非0.0.0.0),则通过该socket回包,srcip则一定是对应bind的ip.</li>
+<li><strong>如果是udp,且bind 0.0.0.0,如果本机有多个ip地址, 则回包时,srcip的选择由内核路由结果得出，会选择和路由结果相近(同网段)的ip地址</strong></li>
 <li><strong>udp,如果想绑定多个ip地址,又不想绑定0.0.0.0,则只有通过生成多个socket来实现.</strong></li>
 </ul>
 
