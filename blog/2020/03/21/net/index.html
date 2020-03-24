@@ -243,28 +243,40 @@ route -n命令结果更加直观</p>
 
 <p>同时我们在子机中添加一个tunl,remote:接入层机ip B, local:C  并且给tunl绑定一个ip也为A, 这个A对子机而言就是虚拟IP.</p>
 
-<p>一个数据包srcip:cltip  dstip: A  收包过程：
-- 首先数据包到达接入层外网网卡.
-- 接入层机器通过配置查询知道,数据包需要发给哪台子机.
-- 给数据包加一层ipip，添加的srcip:B  dstip:C, 然后通过内网网卡发往子机.
-- 子机内网网卡收到数据包，通过ipip头里的srcip对比，找到对应的tunl.
-- 数据包被转到tunl，剥掉ipip头, 得到原始数据包，抛给内核,内核再抛给应用程序.
-- 应用程序得到的数据包里：srcip:clintip,  dstip:接入层的外网ip.
-- 所以应用程序要么监听0.0.0.0, 要么监听外网ip 才能捕获到数据.</p>
+<p>一个数据包srcip:cltip  dstip: A  收包过程：</p>
+
+<ul>
+<li>首先数据包到达接入层外网网卡.</li>
+<li>接入层机器通过配置查询知道,数据包需要发给哪台子机.</li>
+<li>给数据包加一层ipip，添加的srcip:B  dstip:C, 然后通过内网网卡发往子机.</li>
+<li>子机内网网卡收到数据包，通过ipip头里的srcip对比，找到对应的tunl.</li>
+<li>数据包被转到tunl，剥掉ipip头, 得到原始数据包，抛给内核,内核再抛给应用程序.</li>
+<li>应用程序得到的数据包里：srcip:clintip,  dstip:接入层的外网ip.</li>
+<li>所以应用程序要么监听0.0.0.0, 要么监听外网ip 才能捕获到数据.</li>
+</ul>
+
 
 <p>再讨论回包过程前，需要先了解下，数据包里srcip的机制。
-通过观察api的参数，会发现无论tcp,还是udp, 都没有参数指定srcip.
-- 如果是tcp,因为是长链接强管理,五元组是确定的 (srcip,srcport,dstip,dstport,tcp),所以srcip一定是A.
-- 如果是udp,udp程序在收包前会bind ip+port，<strong>注意一个socket只能bind一个ip+port</strong>,
-  如果bind了具体的ip(非0.0.0.0),则通过改socket回包,srcip则一定是对应bind的ip.
-- <strong>如果是udp,且bind 0.0.0.0,如果本机有多个ip地址, 则回包时,srcip的选择由内核路由结果得出，会选择和路有结果相近(同网段)的ip地址</strong>
-- <strong>udp,如果想绑定多个ip地址,又不想绑定0.0.0.0,则只有通过生成多个socket来实现.</strong></p>
+通过观察api的参数，会发现无论tcp,还是udp, 都没有参数指定srcip.</p>
 
-<p>应用程序处理后回包 srcip:A  dstip:cltip   回包过程：
-- 为了顺利回包,会配置from A的路由规则，路由到tunl
-- 则数据包会到达tunl，添加一层ipip，srcip:C dstip:B
-- 然后数据包通过内网网卡发送出去.
-- 接入机器内网网卡收到数据包,解开ipip头，由外网网卡发送出去.</p>
+<ul>
+<li>如果是tcp,因为是长链接强管理,五元组是确定的 (srcip,srcport,dstip,dstport,tcp),所以srcip一定是A.</li>
+<li>如果是udp,udp程序在收包前会bind ip+port，<strong>注意一个socket只能bind一个ip+port</strong>,
+如果bind了具体的ip(非0.0.0.0),则通过改socket回包,srcip则一定是对应bind的ip.</li>
+<li><strong>如果是udp,且bind 0.0.0.0,如果本机有多个ip地址, 则回包时,srcip的选择由内核路由结果得出，会选择和路有结果相近(同网段)的ip地址</strong></li>
+<li><strong>udp,如果想绑定多个ip地址,又不想绑定0.0.0.0,则只有通过生成多个socket来实现.</strong></li>
+</ul>
+
+
+<p>应用程序处理后回包 srcip:A  dstip:cltip   回包过程：</p>
+
+<ul>
+<li>为了顺利回包,会配置from A的路由规则，路由到tunl</li>
+<li>则数据包会到达tunl，添加一层ipip，srcip:C dstip:B</li>
+<li>然后数据包通过内网网卡发送出去.</li>
+<li>接入机器内网网卡收到数据包,解开ipip头，由外网网卡发送出去.</li>
+</ul>
+
 
 <h2>总结</h2>
 
