@@ -1,0 +1,178 @@
+---
+layout: post
+title: "Linux 网络知识进阶"
+date: 2020-03-21 17:23:49 +0800
+comments: true
+categories: Linux
+tags: [linux, 网络, UDP]
+keywords: ip, tunnel, route
+description: linux 网络分析
+---
+## 背景
+
+在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
+- 为啥监听虚拟ip+真实端口？
+- 为啥不能直接监听0.0.0.0,而要采用复杂的配置多个ip端口?
+  
+由这个问题衍生出许多linux的基础知识,本文一起记录下!
+
+<!-- more -->
+
+## ip 命令
+
+ip 命令非常强大,拥有非常多的功能,主要有ip link, ip addr, ip tunnel, ip route, ip rule等等...
+
+### ip link: 网络设备配置命令
+
+可以通过`man ip-link`来查看官方手册.
+
+- `ip link show`显示本机所有的网络设备
+- `ip link add ...`添加虚拟设备, **每个网络设备不一定都是物理设备,可能是虚拟设备,比如bridge\tunnel等**
+- `ip link set tunl0 up|down`启动\关闭设备
+  
+![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/ip_link_show.png)
+
+- UP 表示处于启动的状态;BROADCAST 表示可以发送广播包;MULTICAST 可以发送多播;LOWER_UP表示网线插着.
+- link/ether 这一行表示MAC地址，是设备的物理地址; brd:指广播地址
+
+### ip addr：协议地址管理命令
+
+可以通过`man ip-address`来查看官方手册.
+
+    The address is a protocol (IP or IPv6) address attached to a network device. 
+    Each device must have at least one address to use the corresponding protocol. 
+    It is possible to have several different addresses attached to one device.  
+    These addresses are not discriminated, 
+    so that the term alias is not quite appropriate for them and
+    we do not use it in this document.
+
+- **ip地址对应一个网络设备,设备不一定是网卡,可以是tunnel等**
+- **单个网络设备至少有一个ip地址,可以有多个**,ip地址之间可以配置成对等.
+- `ip addr` 直接显示所有ip配置
+  ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/ip_addr_show.png)
+- scope(范围):Host、link、global 
+  
+        Host: An address has a host scope when it is used only to communicate within the host itself. 
+        Outside the host this address is not known and can not be used.
+        An Example is the loopback address, 127.0.0.1
+
+        Link: An address has a link scope when it is meaningful 
+        and can be used only within a LAN. An example is a subnet's broadcast address.
+
+        Global: An address has global scope when it can be used anywhere. T
+        his is the default scope for most addresses. (...)
+
+- `ip addr show dev|scope` 根据dev设备 或者 scope范围显示ip配置
+- `ip addr add 192.168.1.1/24 dev tunl0 label tunl0:0` 给Eth1添加一个ip地址,并打上标签eth1:0.
+  如果给已有ip的设备添加ip地址，后面的地址会被设为secondary
+![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/ip_addr_add.png)
+    如果添加的ip地址是不同网段,或者掩码/32, 则不会有secondary标志。
+
+### ip tunnel：隧道配置命令
+TUN 是 Linux 内核实现的一种**虚拟网络设备**
+
+IP隧道(IP tunneling)是**将一个IP报文封装在另一个IP报文的技术**，这可以使得目标为一个IP地址的数据报文能被封装和转发到另一个IP地址。IP隧道技术亦称为IP封装技术(IP encapsulation)。IP隧道主要用于虚拟私有网络(Virtual Private Network)，在其中隧道都是静态建立的，隧道一端有一个IP地址，另一端也有唯一的IP地址.
+可以通过`man ip-tunnel`来查看官方手册
+
+- ip tunnel支持多种mode，ipv4支持 ipip, sit, isatap and gre; ipv6支持ip6ip6, ipip6 and any.
+
+- ipip即IPv4 in IPv4，在 IPv4 报文的基础上再封装一个IPv4报文,用tcpdump会发现,有两个ip header.
+![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/ipip.png)
+
+可以理解为**当数据包通过tunl发送出去时,会自动添加一层ip header，当通过tunl接收数据时,会自动剥掉一层ip header**.
+
+- ip tunnel 列出所有的隧道.
+- ip tunnel add tunl0 mode ipip remote 10.10.12.1 local 10.20.12.1 dev eth1
+  
+  添加一个隧道网络设备,注意这只是添加设备,并不涉及ip地址, 设备和ip地址一定要分开理解,这时候通过ifconfig可以看到并没有增加ip地址.
+
+  **‘dev eth1’ 可有可无,如果有：代表该虚拟tunnel绑定该dev,所有该tunnel的包由该dev路由经过**. 
+
+  这时候可以通过ip addr给该tunnel添加一个或者多个ip地址  这个ip地址即我们常说的"虚拟ip".
+
+
+### ip route
+路由表(route table)为每个数据包寻找一条最佳的传输路径，并将该数据有效地传送到目的站点。
+
+/etc/iproute2/rt_tables中记录了路由表名和id的对应关系,系统默认有3个表 为local\main\default.
+
+**默认我们操作的route针对main表**, local由内核自己维护,一般不需要关心.可以自定义id从1－252的路由表
+
+可以通过`man ip-route`查看官方手册
+
+`ip route` 或者 `route -n` 命令会列出main表所有路由,只是格式不一致,'-n' 指把'default'这种数字化表示.
+![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/route.png)
+
+**ip route结果可以看出,有的路由没有via字段,即不需要通过网关.**
+route -n命令结果更加直观
+
+  - Destination	: 目标网络或目标主机。Destination 为 default（0.0.0.0）时，表示这个是默认网关，所有数据都发到这个网关（这里是 10.139.128.1）
+  - Gateway	: 需要通过的网关地址，0.0.0.0 表示当前记录对应的 Destination 跟本机在同一个网段，通信时不需要经过网关
+  - Genmask	: Destination 字段的网络掩码，Destination 是主机时需要设置为 255.255.255.255，是默认路由时会设置为 0.0.0.0
+  - Flags : U-路由是活动的 H-目标是个主机 G-需要经过网关 !-拒绝路由
+  - Iface : 对应的输出接口
+
+1. 添加或者删除路由
+`ip route add|delete 10.12.20.1 via 9.134.32.1 dev eth1 table 1` 如果不指定table,则默认加到main表里
+2. 查看路由
+`ip route list table ***` 查看指定table的路由项
+
+
+### ip rule
+route table里通过数据包的dest地址来选择路由地址, 路由策略rule提供了能够根据报文大小、应用或IP源地址等属性来选择route table.
+
+简单来说：**linux系统有多张route table，而路由策略rule会根据一些条件，将路由请求转向不同的route table**
+
+一条路由策略rule主要包含三个信息，即rule的**优先级，条件，路由表**。
+其中rule的优先级数字越小表示优先级越高，然后是满足什么条件下由指定的路由表来进行路由。
+在linux系统启动时，内核会为路由策略数据库配置三条缺省的规则，
+即rule 0(local)，rule 32766(main)， rule 32767(default)（数字是rule的优先级).
+系统会按照**rule的优先级顺序依次匹配**.
+
+- `ip rule` 会列出所有的rule
+- `ip rule add from|to 10.12.20.2 table 1  pref 1000`  
+  所有src|dest为10.12.20.2的数据包查找route table 1 优先级为1000,如果pref数字不填,则从32765递减插入
+
+**多个策略rule可以指向同一张路由表(route table)。某些路由表可以没有策略指向它,那么这个表就是没有用的,
+但它在系统中仍然存在,直到route table中的内容全部删除.**
+
+
+### 举个例子
+在一个云计算网络中，很多虚拟子机构成一个局域网，每台子机只有一个网卡---局域网ip(内网ip), 标记为C. 
+
+外部接入时从接入层机器接入,接入层机器有两个网卡,一个配置外网ip 标记为A, 一个配置内网ip 标记为B.
+
+同时我们在子机中添加一个tunl,remote:接入层机ip B, local:C  并且给tunl绑定一个ip也为A, 这个A对子机而言就是虚拟IP.
+
+一个数据包srcip:cltip  dstip: A  收包过程：
+
+- 首先数据包到达接入层外网网卡.
+- 接入层机器通过配置查询知道,数据包需要发给哪台子机.
+- 给数据包加一层ipip，添加的srcip:B  dstip:C, 然后通过内网网卡发往子机.
+- 子机内网网卡收到数据包，通过ipip头里的srcip对比，找到对应的tunl.
+- 数据包被转到tunl，剥掉ipip头, 得到原始数据包，抛给内核,内核再抛给应用程序.
+- 应用程序得到的数据包里：srcip:clintip,  dstip:接入层的外网ip.
+- 所以应用程序要么监听0.0.0.0, 要么监听外网ip 才能捕获到数据.
+
+**再讨论回包过程前，需要先了解下，数据包里srcip的机制**。
+通过观察api的参数，会发现无论tcp,还是udp, 都没有参数指定srcip.
+
+- 如果是tcp,因为是长链接强管理,五元组是确定的 (srcip,srcport,dstip,dstport,tcp),所以srcip一定是A.
+- 如果是udp,udp程序在收包前会bind ip+port，**注意一个socket只能bind一个ip+port**,
+  如果bind了具体的ip(非0.0.0.0),则通过该socket回包,srcip则一定是对应bind的ip.
+- **如果是udp,且bind 0.0.0.0,如果本机有多个ip地址, 则回包时,srcip的选择由内核路由结果得出，会选择和路由结果相近(同网段)的ip地址**
+- **udp,如果想绑定多个ip地址,又不想绑定0.0.0.0,则只有通过生成多个socket来实现.**
+
+应用程序处理后回包 srcip:A  dstip:cltip   回包过程：
+
+- 为了顺利回包,会配置from A的路由规则，路由到tunl
+- 则数据包会到达tunl，添加一层ipip，srcip:C dstip:B
+- 然后数据包通过内网网卡发送出去.
+- 接入机器内网网卡收到数据包,解开ipip头，由外网网卡发送出去.
+
+## 总结
+所以文本开头的两个问题，都是为了完成收发包，才必须那么做。
+
+实际生产环境中，tunl不止一个，接入外网ip也不止一个，则子机中有多个虚拟ip，
+
+对于udp而言，如果监听0.0.0.0，那么回包的srcip，根据路由结果而定，那么回包路径则可能不通。
