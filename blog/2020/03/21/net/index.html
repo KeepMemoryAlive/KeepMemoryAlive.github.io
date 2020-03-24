@@ -1,24 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Linux | coding]]></title>
-  <link href="http://blog.youngxiao.com/blog/categories/linux/atom.xml" rel="self"/>
-  <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-03-24T14:16:50+08:00</updated>
-  <id>http://blog.youngxiao.com/</id>
-  <author>
-    <name><![CDATA[young]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Linux 网络知识进阶 - coding</title>
+  <meta name="author" content="young">
 
   
-  <entry>
-    <title type="html"><![CDATA[Linux 网络知识进阶]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/21/net/"/>
-    <updated>2020-03-21T17:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/21/net</id>
-    <content type="html"><![CDATA[<h2>背景</h2>
+  <meta name="description" content="linux 网络分析">
+  <meta name="keywords" content="ip, tunnel, route">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.youngxiao.com/blog/2020/03/21/net/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="coding" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">coding</a></h1>
+  
+    <h2>one coder's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="blog.youngxiao.com">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Linux 网络知识进阶</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2020-03-21T17:23:49+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2020</span></span> <span class='time'>5:23 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>背景</h2>
 
 <p>在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
 - 为啥监听虚拟ip+真实端口？
@@ -206,134 +273,128 @@ route -n命令结果更加直观</p>
 <p>实际生产环境中，tunl不止一个，接入外网ip也不止一个，则子机中有多个虚拟ip，</p>
 
 <p>对于udp而言，如果监听0.0.0.0，那么回包的srcip，根据路由结果而定，那么回包路径则可能不通。</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Linux 多核cpu负载分析]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/09/cpuinfo/"/>
-    <updated>2020-03-09T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/09/cpuinfo</id>
-    <content type="html"><![CDATA[<h2>背景:</h2>
 
-<p>一台linux服务器，多核cpu，部署多个进程</p>
+<span class="byline author vcard">Posted by <span class="fn">young</span></span>
 
-<ul>
-<li>这台服务器的cpu压力是怎样的？</li>
-<li>单个进程的cpu使用率是怎么算的？</li>
-<li>多个核的使用率是均衡的吗？</li>
-<li>哪些原因会影响各个核使用率？</li>
-</ul>
+      
 
 
-<!-- more -->
 
 
-<h2>cpu使用率：</h2>
+<time class='entry-date' datetime='2020-03-21T17:23:49+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2020</span></span> <span class='time'>5:23 pm</span></time>
+      
 
-<p>cpu使用率指 进程在一段时间内占用cpu的时间 / 单个cpu总共的时间.</p>
-
-<p><strong>单进程单线程同时只能在一个cpu上执行，所以它最多100%。</strong></p>
-
-<p>就算它在多个核上调度执行，比如2核 1s时间内进程在cpu0 执行0.5s,在cpu1执行0.5s,总使用率还是100%.</p>
-
-<p><strong>多线程可以在多个核上同时执行，则使用率可以达到N*100%, N指几个线程</strong></p>
-
-<p>从cpu使用率的定义得知：使用率越高代表进程越繁忙。</p>
-
-<h2>现代服务器的cpu构架：</h2>
-
-<p><strong>非统一内存访问架构</strong>（英语：Non-uniform memory access，简称NUMA）是一种为<strong>多处理器</strong>的电脑设计的内存架构，内存访问时间取决于内存相对于处理器的位置。在NUMA下，处理器访问它自己的本地内存的速度比非本地内存（内存位于另一个处理器，或者是处理器之间共享的内存）快一些。</p>
-
-<p>最初的架构是这样的：
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/no_numa.png" alt="" /></p>
-
-<p>随着从“拼频率”到“拼核心数”的转变，越来越多的核心被尽可能地塞进了同一块芯片上，各个核心对于内存带宽的争抢访问成为了瓶颈.</p>
-
-<p> NUMA在这种情况下发展而来：通过把 多个CPU和部分RAM 当做一个 node，整体分为多个node, CPU 会优先访问距离近的 RAM,cpu跨node访问消耗更大。</p>
-
-<p> <img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/numa_node.png" alt="" /></p>
-
-<p>注意图中这里的一块cpu 是一个物理芯片，一般有多个core,而不是单个cpu core。</p>
-
-<p><strong>NUMA相关的几个概念有node、socket、core和thread。一个node里可以有多个Socket, Socket是一个物理上的概念，指的是主板上的cpu插槽(即一个物理芯片), 一个socket拥有多个物理core,core即一个独立的硬件执行单元。Thread就是超线程的概念，是一个逻辑cpu，共享core上的执行单元，一个物理core上可以有2个Thread，即2个逻辑cpu.</strong></p>
-
-<p>所以现在的cpu层级是这样的：
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/numa.png" alt="" /></p>
-
-<p>从图中可以看出：这里的coreP1 coreP2&hellip;是逻辑cpu 即超线程cpu, L1和L2缓存都是每个物理CPU一个, L1缓存有分为L1i和L1d，分别用来存储指令和数据，L2缓存是不区分指令和数据的。<strong>L3缓存是同socket的多个物理核心共用一个。不同socket的cpu是不共用任何cache的</strong>。</p>
-
-<p>常用命令: numactl &ndash;hardware, numactl &ndash;show, numastat等</p>
-
-<h2>超线程(Hyper-Threading)：</h2>
-
-<p>通过此技术，英特尔实现在一个实体CPU中，提供两个逻辑线程(即逻辑cpu),英特尔于2016年发布的Core i7-6950X便是将10核心的处理器，加上超线程技术，使之成为20个逻辑线程的产品。</p>
-
-<p>超线程技术就是利用特殊的硬件指令，把两个逻辑内核模拟成两个物理芯片，让单个处理器都能使用线程级并行计算． 具体讲，就是通过CPU的寄存器构成了两个逻辑处理器，来共享处理器的物理执行单元，并同步进行加、乘、负载等操作，当两个线程都同时需要某一个资源时，其中一个要暂时停止，并让出资源，直到这些资源闲置后才能继续，因此<strong>超线程的性能并不等于两颗CPU的性能</strong>。</p>
-
-<p>/proc/cpuinfo中的各项数值含义:
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/cpuinfo.png" alt="" /></p>
-
-<pre><code>processor: 即逻辑cpu
-physical id: 即上文所说的socket，即物理芯片(注意不是物理单核)
-core id：即物理单核core
-siblings：即同一个socket下的逻辑cpu个数
-
-所以如果两个processor的physical_id和core_id都相同，则这两个processor为同一个物理core里的超线程cpu，即启用了超线程。
-</code></pre>
-
-<p>通过<code>lscpu -p</code> <code>lscpu -e</code>可以清楚看到各个cpu参数
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/lscpu.png" alt="" /></p>
-
-<h2>调度器：</h2>
-
-<p>在现代这样复杂的系统中，调度器要解决的一个首要问题就是如何发挥这么多 CPU 的性能，使得负载均衡。不能存在某些 CPU一直很忙，进程在排队等待运行，而某些 CPU却是处于空闲状态。</p>
-
-<ul>
-<li><p>单核调度：</p>
-
-<p>  对运行在单核上的线程进行调度，每个核都有自己的运行队列，最新的算法称为CFS，它的基本原理是：给每个在调度队列中的线程一个vruntime的变量，记录这个线程运行了多久，每次调度，都调度vruntime最小的线程。</p></li>
-<li><p>多核调度:</p>
-
-<p>  单核调度是多核调度的基础，每个核有自己的运行队列，还需要考虑各个核之间的任务的平衡，当一个核特别忙，另一个特别闲，则会进行核之间的Load Balance。但是Load Balance 是有代价的：</p>
-
-<ol>
-<li>同一个物理核的两个超线程，它们之前迁移代价最小。</li>
-<li>跨物理核迁移，会导致L1 L2 cache失效。</li>
-<li>跨node迁移，不仅导致L1 L2 L3 cache失效，还会导致cpu和内存之间的访问距离变大，直接影响线程的运行效率。</li>
-<li>cpu power(功耗)问题，一个物理 CPU 中的两个超线程CPU 各执行一个进程，显然比两个物理 CPU 中的  超线程CPU 各执行一个进程节省功耗。</li>
-</ol>
-</li>
-</ul>
-
-
-<p>为了解决上面的问题，Linux2.6 中引入基于 Scheduling Domains(调度域) 的解决方案。</p>
-
-<p>从上文得知，系统的层级为Numa Node&ndash;>Physical CPU(物理芯片) &ndash;> Multi core(单个芯片多个core)&mdash;>Hyper threading(单个core包含2个HT),
-<strong>所以在同一个系统中,各个processor之间并不是完全对等的,它们所在的层级分支,决定了它们之间的关系！</strong></p>
-
-<p>每个 Scheduling Domain 其实就是根据层级划分具有相同属性的一组 cpu 的集合,不同级之间通过指针链接在一起，从而形成一种的树状的关系.
-<img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/domain.jpg" alt="" /></p>
-
-<p>负载平衡就是针对 Scheduling domain 的。从叶节点往上遍历。直到所有的 domain 中的负载都是平衡的。当然<strong>对不同的 domain 会有不同的策略识别是否负载不平衡，以及不同的调度策略</strong>。通过这样的方式，从而很好的发挥众多 cpu 的效率. 层级越高,调度的频率会越低.</p>
-
-<p>目录/proc/sys/kernel/sched_domain 下有所有的最底层级别的cpu目录, 目录里有对应的domain0\domain1\domain3等。。。</p>
-
-<p>根据系统的实际层级,目录里可能只有一个domain,或者有多个domain,一般情况下：</p>
-
-<pre><code>domain0/name--&gt;"SIBLING"  
-domain1/name--&gt;"MC" (multi core)  
-domain2/name--&gt;"CPU" 
-domain3/name--&gt;"NUMA"
-</code></pre>
-
-<p>domain目录里有各种参数配置文件，具体含义需要参见内核算法,比较好理解的两个参数文件：min_interval(最小的 load balance 间隔)
-max_interval(最大的 load balance 间隔),不同的domain里的参数并不相同。</p>
-
-<p>对于开发者而言，调整domain的算法的情况很少，我们只需要记住:<strong>在多node多物理cpu的系统下，各个processor之间并不是对等的，所以它们的cpu使用率可能会有一定程度的不均等</strong>,</p>
-
-<p>根据实际情况调整系统的层级部署，减少高层级的调度。单node单物理cpu 肯定比 多node多物理cpu 产生的调度消耗小。</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.youngxiao.com/blog/2020/03/21/net/" data-via="" data-counturl="http://blog.youngxiao.com/blog/2020/03/21/net/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2020/03/09/cpuinfo/" title="Previous Post: Linux 多核cpu负载分析">&laquo; Linux 多核cpu负载分析</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2020/03/21/net/">Linux 网络知识进阶</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2020/03/09/cpuinfo/">Linux 多核cpu负载分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/09/02/smoba-tech/">Lockstep</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/03/15/my-five-blog/">大学日记</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+ <h1>Categories</h1>
+ <ul id="categories">
+  <li class='category'><a href='/blog/categories/algorithm/'>algorithm (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (3)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
+<li class='category'><a href='/blog/categories/words/'>words (2)</a></li>
+
+ </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2020 - young -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

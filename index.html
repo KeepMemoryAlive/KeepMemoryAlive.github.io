@@ -9,10 +9,9 @@
   <meta name="author" content="young">
 
   
-  <meta name="description" content="背景: 一台linux服务器，多核cpu，部署多个进程 这台服务器的cpu压力是怎样的？
-单个进程的cpu使用率是怎么算的？
-多个核的使用率是均衡的吗？
-哪些原因会影响各个核使用率？ ">
+  <meta name="description" content="背景 在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
+- 为啥监听虚拟ip+真实端口？
+- 为啥不能直接监听0.0.0.0,而要采用复杂的配置多个ip端口? &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +68,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2020/03/21/net/">Linux 网络知识进阶</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2020-03-21T17:23:49+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2020</span></span> <span class='time'>5:23 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>背景</h2>
+
+<p>在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
+- 为啥监听虚拟ip+真实端口？
+- 为啥不能直接监听0.0.0.0,而要采用复杂的配置多个ip端口?</p>
+
+<p>由这个问题衍生出许多linux的基础知识,本文一起记录下!</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2020/03/21/net/">阅读更多 →</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -387,6 +426,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2020/03/21/net/">Linux 网络知识进阶</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2020/03/09/cpuinfo/">Linux 多核cpu负载分析</a>
       </li>
     
@@ -402,10 +445,6 @@
         <a href="/blog/2016/03/15/my-third-blog/">POJ 2796 单调栈</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2016/03/15/my-second-blog/">Octopress+GitHub 搭建个人博客</a>
-      </li>
-    
   </ul>
 </section>
 <section>
@@ -413,7 +452,7 @@
  <ul id="categories">
   <li class='category'><a href='/blog/categories/algorithm/'>algorithm (1)</a></li>
 <li class='category'><a href='/blog/categories/git/'>git (3)</a></li>
-<li class='category'><a href='/blog/categories/linux/'>linux (1)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
 <li class='category'><a href='/blog/categories/words/'>words (2)</a></li>
 
  </ul>
@@ -440,6 +479,16 @@
 
 
 
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
 
 
