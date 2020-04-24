@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-03-24T14:26:34+08:00</updated>
+  <updated>2020-04-24T17:35:40+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[计算机思维]]></title>
+    <link href="http://blog.youngxiao.com/blog/2020/04/16/thinking/"/>
+    <updated>2020-04-16T16:45:23+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2020/04/16/thinking</id>
+    <content type="html"><![CDATA[<p>计算机思维和人的思维的差异：比如计算2000-12-01到2234-09-01的所有日期中一共有多少个9，常人思维：没办法每个日期都列出来数一遍，就去尝试分情况每位去统计；而计算机思维：从开始到结束，每个日期列出来，并不困难，</p>
+
+<p>DP: 最重要的是 转移方程, 父问题怎么转移到子问题中,最小的子问题很容易解决,从而推导出父问题的答案, 比如斐波那契数列 f(n) = f(n-1) + f(n-2)</p>
+
+<p>BFS：广度优先搜索，一种穷举搜索的思想：先搜索第一层，全部搜完后，再搜第2层，依次下去&hellip; 用队列非常容易实现。</p>
+
+<p>线段树:</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Linux 网络知识进阶]]></title>
