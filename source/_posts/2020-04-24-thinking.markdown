@@ -6,7 +6,7 @@ comments: true
 categories: algorithm
 tags: [计算机, 思维, 算法]
 keywords: 算法, 思维
-description: 算法
+description: 算法 计算机方法论
 ---
 
 计算机解决问题的方法和思路是有一些特别的，特意留意这些区别和方法有助于思考和解决一些问题。
