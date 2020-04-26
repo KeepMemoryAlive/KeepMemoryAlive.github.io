@@ -11,25 +11,25 @@ description: git基础知识
 
 # Git原理 #
 
-1. Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于**分布式**，每个人的电脑上都是一个完整的版本库，所以**使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库**。
+Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于**分布式**，每个人的电脑上都是一个完整的版本库，所以**使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库**。
 
 <!-- more -->
  
-2. 工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+1. 工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
    
 
-3. 我们把文件往Git版本库里添加的时候，是分两步执行的：
+2. 我们把文件往Git版本库里添加的时候，是分两步执行的：
 
 	第一步是用**git add把文件添加进去，实际上就是把文件修改添加到暂存区**；
 
 	第二步是用**git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。（注意这只是提交到本地库的分支）** 
 
-1. 远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
+3. 远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
 **这里有需要注意的地方：**
 
-       A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io”这个仓库，其实它在github上可能有几个分支。
+    A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io”这个仓库，其实它在github上可能有几个分支。
 
-       B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的**本地master分支** 与 **远程master分支**之间的联系。
+    B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的**本地master分支** 与 **远程master分支**之间的联系。
 
 
 # Git常用命令 #
@@ -69,6 +69,12 @@ description: git基础知识
 	`git pull`  
 	**注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了**  
 
+- git branch -vv : 查看本地分支与远程分支的对应关系
+  
+	`* source 60511bd [origin/source] test`
+	
+	*指当前所在本地分支，[]里为远程分支  test指最新的一个提交log
+
 
 - git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。  
   ` git push <远程主机名> <本地分支名>:<远程分支名>` 
@@ -91,4 +97,11 @@ description: git基础知识
 
 - git reset：回退版本  
     `git reset --hard 66a4b03` 回退到66a4b03指定的版本，这个指通过 git reflog可以查看  
+
+
+**常用使用步骤**：
+1. git status
+2. git add .   (删除文件：git rm file)
+3. git commit -m "messages"  (这里后面不用跟文件名之类的)
+4. git push  (当前只有一个追踪分支)
 
