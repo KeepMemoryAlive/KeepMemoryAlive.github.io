@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: "大学日记" ##
-date: 2016-03-15 13:57:57 +0800
+date: 2010-04-15 13:57:57 +0800
 comments: true
 categories: words
 tags: [生活]

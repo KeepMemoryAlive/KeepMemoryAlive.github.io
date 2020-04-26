@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "octopress怎么添加文章"
-date: 2016-03-15 10:56:57 +0800
+date: 2009-03-20 10:56:57 +0800
 comments: true
 categories: Git
 tags: [Git, Octopress]
