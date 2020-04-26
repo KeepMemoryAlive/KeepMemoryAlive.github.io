@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Algorithm | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/algorithm/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T14:45:17+08:00</updated>
+  <updated>2020-04-26T17:15:35+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[计算机思维]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/04/16/thinking/"/>
+    <link href="http://blog.youngxiao.com/blog/thinking/"/>
     <updated>2020-04-16T16:45:23+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/04/16/thinking</id>
+    <id>http://blog.youngxiao.com/blog/thinking</id>
     <content type="html"><![CDATA[<p>计算机解决问题的方法和思路是有一些特别的，特意留意这些区别和方法有助于思考和解决一些问题。</p>
 
 <!-- more -->
@@ -63,9 +63,9 @@
   
   <entry>
     <title type="html"><![CDATA[POJ 2796 单调栈]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-third-blog/"/>
     <updated>2016-03-15T12:22:24+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-third-blog</id>
     <content type="html"><![CDATA[<p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
 
 <p><strong>分析：</strong></p>

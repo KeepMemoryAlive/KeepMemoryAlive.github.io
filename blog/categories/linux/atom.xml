@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T14:45:17+08:00</updated>
+  <updated>2020-04-26T17:15:35+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Linux 网络知识进阶]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/21/net/"/>
+    <link href="http://blog.youngxiao.com/blog/net/"/>
     <updated>2020-03-21T17:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/21/net</id>
+    <id>http://blog.youngxiao.com/blog/net</id>
     <content type="html"><![CDATA[<h2>背景</h2>
 
 <p>在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
@@ -223,9 +223,9 @@ route -n命令结果更加直观</p>
   
   <entry>
     <title type="html"><![CDATA[Linux 多核cpu负载分析]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/09/cpuinfo/"/>
+    <link href="http://blog.youngxiao.com/blog/cpuinfo/"/>
     <updated>2020-03-09T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/09/cpuinfo</id>
+    <id>http://blog.youngxiao.com/blog/cpuinfo</id>
     <content type="html"><![CDATA[<h2>背景:</h2>
 
 <p>一台linux服务器，多核cpu，部署多个进程</p>

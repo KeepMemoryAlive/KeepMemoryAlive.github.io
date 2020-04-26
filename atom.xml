@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T14:45:17+08:00</updated>
+  <updated>2020-04-26T17:15:35+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[计算机思维]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/04/16/thinking/"/>
+    <link href="http://blog.youngxiao.com/blog/thinking/"/>
     <updated>2020-04-16T16:45:23+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/04/16/thinking</id>
+    <id>http://blog.youngxiao.com/blog/thinking</id>
     <content type="html"><![CDATA[<p>计算机解决问题的方法和思路是有一些特别的，特意留意这些区别和方法有助于思考和解决一些问题。</p>
 
 <!-- more -->
@@ -63,9 +63,9 @@
   
   <entry>
     <title type="html"><![CDATA[Linux 网络知识进阶]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/21/net/"/>
+    <link href="http://blog.youngxiao.com/blog/net/"/>
     <updated>2020-03-21T17:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/21/net</id>
+    <id>http://blog.youngxiao.com/blog/net</id>
     <content type="html"><![CDATA[<h2>背景</h2>
 
 <p>在业务机器的部署中,有的业务监听多个vip(virtual ip) + rsport(real server port)的情形,初看之下这种监听不合常理:
@@ -271,9 +271,9 @@ route -n命令结果更加直观</p>
   
   <entry>
     <title type="html"><![CDATA[Linux 多核cpu负载分析]]></title>
-    <link href="http://blog.youngxiao.com/blog/2020/03/09/cpuinfo/"/>
+    <link href="http://blog.youngxiao.com/blog/cpuinfo/"/>
     <updated>2020-03-09T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2020/03/09/cpuinfo</id>
+    <id>http://blog.youngxiao.com/blog/cpuinfo</id>
     <content type="html"><![CDATA[<h2>背景:</h2>
 
 <p>一台linux服务器，多核cpu，部署多个进程</p>
@@ -398,18 +398,18 @@ max_interval(最大的 load balance 间隔),不同的domain里的参数并不相
   
   <entry>
     <title type="html"><![CDATA[Lockstep]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/09/02/smoba-tech/"/>
+    <link href="http://blog.youngxiao.com/blog/smoba-tech/"/>
     <updated>2016-09-02T15:49:25+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/09/02/smoba-tech</id>
+    <id>http://blog.youngxiao.com/blog/smoba-tech</id>
     <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/lockstep.png" alt="" /></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[POJ 2796 单调栈]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-third-blog/"/>
     <updated>2016-03-15T12:22:24+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-third-blog</id>
     <content type="html"><![CDATA[<p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
 
 <p><strong>分析：</strong></p>
@@ -527,9 +527,9 @@ int main()
   
   <entry>
     <title type="html"><![CDATA[Git基础知识]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-first-blog/"/>
     <updated>2016-03-15T10:32:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-first-blog</id>
     <content type="html"><![CDATA[<h1>Git原理</h1>
 
 <p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
@@ -622,9 +622,9 @@ int main()
   
   <entry>
     <title type="html"><![CDATA[大学日记]]></title>
-    <link href="http://blog.youngxiao.com/blog/2010/04/15/my-five-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-five-blog/"/>
     <updated>2010-04-15T13:57:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2010/04/15/my-five-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-five-blog</id>
     <content type="html"><![CDATA[<pre><code>曾经在读书时记录的日记，记录下，留个纪念~
 </code></pre>
 
@@ -809,9 +809,9 @@ ACM不可能是大学学习的全部，我也不可能把它当作全部！自�
   
   <entry>
     <title type="html"><![CDATA[古老的面试题]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/05/06/interview/"/>
+    <link href="http://blog.youngxiao.com/blog/interview/"/>
     <updated>2009-05-06T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/05/06/interview</id>
+    <id>http://blog.youngxiao.com/blog/interview</id>
     <content type="html"><![CDATA[<p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
 
 <pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。
@@ -917,9 +917,9 @@ a，b继续飞行，到达B时，b给a加满油，自己返回。a继续飞行�
   
   <entry>
     <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/03/20/my-four-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-four-blog/"/>
     <updated>2009-03-20T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/03/20/my-four-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-four-blog</id>
     <content type="html"><![CDATA[<h1>添加文章</h1>
 
 <ol>
@@ -948,9 +948,9 @@ git push origin source</p></li>
   
   <entry>
     <title type="html"><![CDATA[Octopress+GitHub 搭建个人博客]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/03/15/my-second-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-second-blog/"/>
     <updated>2009-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/03/15/my-second-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-second-blog</id>
     <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
 <p><strong>2. GitHub是用来托管blog网页的网站</strong></p>

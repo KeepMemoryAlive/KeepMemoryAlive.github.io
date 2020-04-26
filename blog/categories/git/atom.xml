@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T14:45:17+08:00</updated>
+  <updated>2020-04-26T17:15:35+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Git基础知识]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-first-blog/"/>
     <updated>2016-03-15T10:32:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-first-blog</id>
     <content type="html"><![CDATA[<h1>Git原理</h1>
 
 <p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
@@ -110,9 +110,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/03/20/my-four-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-four-blog/"/>
     <updated>2009-03-20T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/03/20/my-four-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-four-blog</id>
     <content type="html"><![CDATA[<h1>添加文章</h1>
 
 <ol>
@@ -141,9 +141,9 @@ git push origin source</p></li>
   
   <entry>
     <title type="html"><![CDATA[Octopress+GitHub 搭建个人博客]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/03/15/my-second-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-second-blog/"/>
     <updated>2009-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/03/15/my-second-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-second-blog</id>
     <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
 <p><strong>2. GitHub是用来托管blog网页的网站</strong></p>

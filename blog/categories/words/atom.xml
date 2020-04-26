@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Words | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/words/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T14:45:17+08:00</updated>
+  <updated>2020-04-26T17:15:35+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[大学日记]]></title>
-    <link href="http://blog.youngxiao.com/blog/2010/04/15/my-five-blog/"/>
+    <link href="http://blog.youngxiao.com/blog/my-five-blog/"/>
     <updated>2010-04-15T13:57:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2010/04/15/my-five-blog</id>
+    <id>http://blog.youngxiao.com/blog/my-five-blog</id>
     <content type="html"><![CDATA[<pre><code>曾经在读书时记录的日记，记录下，留个纪念~
 </code></pre>
 
@@ -202,9 +202,9 @@ ACM不可能是大学学习的全部，我也不可能把它当作全部！自�
   
   <entry>
     <title type="html"><![CDATA[古老的面试题]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/05/06/interview/"/>
+    <link href="http://blog.youngxiao.com/blog/interview/"/>
     <updated>2009-05-06T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/05/06/interview</id>
+    <id>http://blog.youngxiao.com/blog/interview</id>
     <content type="html"><![CDATA[<p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
 
 <pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。

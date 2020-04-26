@@ -2,3 +2,4 @@ User-agent: *
 Disallow: 
 
 Sitemap: http://blog.youngxiao.com/sitemap.xml 
+Sitemap: http://blog.youngxiao.com/baidusitemap.xml
