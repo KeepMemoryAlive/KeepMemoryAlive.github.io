@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | coding]]></title>
   <link href="http://blog.youngxiao.com/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T13:41:07+08:00</updated>
+  <updated>2020-04-26T13:48:25+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -14,10 +14,136 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Git基础知识]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
+    <updated>2016-03-15T10:32:49+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
+    <content type="html"><![CDATA[<h1>Git原理</h1>
+
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
+<li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
+
+<p> 第一步是用<strong>git add把文件添加进去，实际上就是把文件修改添加到暂存区</strong>；</p>
+
+<p> 第二步是用<strong>git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。（注意这只是提交到本地库的分支）</strong></p></li>
+<li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
+<strong>这里有需要注意的地方：</strong></p>
+
+<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
+
+<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
+</ol>
+
+
+<h1>Git常用命令</h1>
+
+<ul>
+<li><p>git clone:如果不指定本地目录名，就同名，注意默认切出来的是master分支<br/>
+<code>git clone: &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></li>
+<li><p>git remote: Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名.<br/>
+  <code>git remote -v</code></p>
+
+<p>   octopress       git://github.com/imathis/octopress.git (fetch)<br/>
+   octopress       git://github.com/imathis/octopress.git (push)<br/>
+  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (fetch)
+  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (push)</p>
+
+<p>  克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用git clone命令的-o选项指定。<br/>
+  <code>git clone -o jQuery https://github.com/jquery/jquery.git</code></p>
+
+<p>  <code>git remote show &lt;主机名&gt;</code>: 查看该主机的详细信息<br/>
+  <code>git remote add &lt;主机名&gt; &lt;网址&gt;</code> : 命令用于添加远程主机。<br/>
+  <code>git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p>
+
+<p>  <strong>注意：</strong>  remote只代表对应的远程主机，并没有列出本地分支和远程分支之间的tracking information</p></li>
+<li><p>git pull: 取回远程主机<strong>某个分支</strong>的更新，再与<strong>本地的指定分支合并</strong>。它的完整格式稍稍有点复杂。 <br/>
+  <code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p>
+
+<p>  在某些场合，Git会自动在本地分支与远程分支之间，建立一种<strong>追踪关系</strong>(tracking)。比如，<strong>在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系</strong>，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
+
+<p>  Git也允许手动建立追踪关系：<br/>
+  <code>git branch --set-upstream master origin/next</code></p>
+
+<p>  上面命令指定<strong>本地master</strong>分支追踪origin/next分支，如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。<br/>
+  <code>git pull origin</code></p>
+
+<p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
+  <code>git pull</code><br/>
+  <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
+<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
+
+<p>  <code>* source 60511bd [origin/source] test</code></p>
+
+<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
+<li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
+<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
+
+<p>  <strong>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支(通常两者同名)，如果该远程分支不存在，则会被新建。</strong><br/>
+  <code>git push origin master</code><br/>
+上面命令表示，将<strong>本地的master</strong>分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+
+<p>  如果当前分支只有一个追踪分支，那么主机名都可以省略。<br/>
+  <code>git push</code>  <strong>用这个命令一定要注意 当前的对应关系</strong></p></li>
+<li><p>git status:查看当前工作区的修改</p></li>
+<li><p>git log: 如果不带任何参数，它会列出所有历史记录，最近的排在最上方<br/>
+  <code>git log -n</code> : 选择显示前N条。<br/>
+  <code>git log --pretty=oneline</code> : 一行显示，只显示哈希值和提交说明。</p></li>
+<li><p>git reflog: 列出了head曾经指向过的一系列commit.</p></li>
+<li><p>git reset：回退版本<br/>
+  <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
+</ul>
+
+
+<p><strong>常用使用步骤</strong>：
+1. git status
+2. git add .   (删除文件：git rm file)
+3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
+4. git push  (当前只有一个追踪分支)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
+    <link href="http://blog.youngxiao.com/blog/2009/03/20/my-four-blog/"/>
+    <updated>2009-03-20T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2009/03/20/my-four-blog</id>
+    <content type="html"><![CDATA[<h1>添加文章</h1>
+
+<ol>
+<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
+注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
+
+<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
+</ol>
+
+
+<!-- more -->
+
+
+<ol>
+<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
+<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
+<li><p>最后保存文章的code文件，提交到source目录下</p>
+
+<p>git add .<br/>
+git commit -m “your message”<br/>
+git push origin source</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Octopress+GitHub 搭建个人博客]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/"/>
-    <updated>2016-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog</id>
+    <link href="http://blog.youngxiao.com/blog/2009/03/15/my-second-blog/"/>
+    <updated>2009-03-15T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2009/03/15/my-second-blog</id>
     <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
 <p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
@@ -130,132 +256,6 @@ gem sources -l
 <li><p>2、octopress/_deploy目录是blog网站文件的目录，访问网站需要的文件都在这个目录里，它对应github上的master分支，所以要想更新blog，内容必须提交到master分支才会有效。</p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
-    <updated>2016-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
-    <content type="html"><![CDATA[<h1>添加文章</h1>
-
-<ol>
-<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
-注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
-
-<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
-</ol>
-
-
-<!-- more -->
-
-
-<ol>
-<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
-<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
-<li><p>最后保存文章的code文件，提交到source目录下</p>
-
-<p>git add .<br/>
-git commit -m “your message”<br/>
-git push origin source</p></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Git基础知识]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
-    <updated>2016-03-15T10:32:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
-    <content type="html"><![CDATA[<h1>Git原理</h1>
-
-<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
-
-<!-- more -->
-
-
-<ol>
-<li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
-<li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
-
-<p> 第一步是用<strong>git add把文件添加进去，实际上就是把文件修改添加到暂存区</strong>；</p>
-
-<p> 第二步是用<strong>git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。（注意这只是提交到本地库的分支）</strong></p></li>
-<li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
-<strong>这里有需要注意的地方：</strong></p>
-
-<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
-
-<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
-</ol>
-
-
-<h1>Git常用命令</h1>
-
-<ul>
-<li><p>git clone:如果不指定本地目录名，就同名，注意默认切出来的是master分支<br/>
-<code>git clone: &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></li>
-<li><p>git remote: Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名.<br/>
-  <code>git remote -v</code></p>
-
-<p>   octopress       git://github.com/imathis/octopress.git (fetch)<br/>
-   octopress       git://github.com/imathis/octopress.git (push)<br/>
-  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (fetch)
-  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (push)</p>
-
-<p>  克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用git clone命令的-o选项指定。<br/>
-  <code>git clone -o jQuery https://github.com/jquery/jquery.git</code></p>
-
-<p>  <code>git remote show &lt;主机名&gt;</code>: 查看该主机的详细信息<br/>
-  <code>git remote add &lt;主机名&gt; &lt;网址&gt;</code> : 命令用于添加远程主机。<br/>
-  <code>git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p>
-
-<p>  <strong>注意：</strong>  remote只代表对应的远程主机，并没有列出本地分支和远程分支之间的tracking information</p></li>
-<li><p>git pull: 取回远程主机<strong>某个分支</strong>的更新，再与<strong>本地的指定分支合并</strong>。它的完整格式稍稍有点复杂。 <br/>
-  <code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p>
-
-<p>  在某些场合，Git会自动在本地分支与远程分支之间，建立一种<strong>追踪关系</strong>(tracking)。比如，<strong>在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系</strong>，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
-
-<p>  Git也允许手动建立追踪关系：<br/>
-  <code>git branch --set-upstream master origin/next</code></p>
-
-<p>  上面命令指定<strong>本地master</strong>分支追踪origin/next分支，如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。<br/>
-  <code>git pull origin</code></p>
-
-<p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
-  <code>git pull</code><br/>
-  <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
-<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
-
-<p>  <code>* source 60511bd [origin/source] test</code></p>
-
-<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
-<li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
-<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
-
-<p>  <strong>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支(通常两者同名)，如果该远程分支不存在，则会被新建。</strong><br/>
-  <code>git push origin master</code><br/>
-上面命令表示，将<strong>本地的master</strong>分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
-
-<p>  如果当前分支只有一个追踪分支，那么主机名都可以省略。<br/>
-  <code>git push</code>  <strong>用这个命令一定要注意 当前的对应关系</strong></p></li>
-<li><p>git status:查看当前工作区的修改</p></li>
-<li><p>git log: 如果不带任何参数，它会列出所有历史记录，最近的排在最上方<br/>
-  <code>git log -n</code> : 选择显示前N条。<br/>
-  <code>git log --pretty=oneline</code> : 一行显示，只显示哈希值和提交说明。</p></li>
-<li><p>git reflog: 列出了head曾经指向过的一系列commit.</p></li>
-<li><p>git reset：回退版本<br/>
-  <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
-</ul>
-
-
-<p><strong>常用使用步骤</strong>：
-1. git status
-2. git add .   (删除文件：git rm file)
-3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
-4. git push  (当前只有一个追踪分支)</p>
 ]]></content>
   </entry>
   

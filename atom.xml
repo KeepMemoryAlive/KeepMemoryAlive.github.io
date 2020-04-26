@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-26T13:41:07+08:00</updated>
+  <updated>2020-04-26T13:48:25+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -406,10 +406,225 @@ max_interval(最大的 load balance 间隔),不同的domain里的参数并不相
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[POJ 2796 单调栈]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/"/>
+    <updated>2016-03-15T12:22:24+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog</id>
+    <content type="html"><![CDATA[<p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
+
+<p><strong>分析：</strong></p>
+
+<p>（序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。</p>
+
+<p>所以对于题目，我们只要对于<strong>每个元素，计算出“以这个元素作为序列最小值时，得到的最大乘积”</strong>，然后比较，取出最大值即可。</p>
+
+<p>那问题的关键就在于，怎么得到 <strong>“以该元素作为序列最小值时的最长序列”，即从该元素开始像两边延伸到最大限度</strong></p>
+
+<!-- more -->
+
+
+<p>这个问题的特性就可以用单调栈来解决：</p>
+
+<p><strong>单调栈:顾名思义就是在入栈时遵循单调原则，可以求出一个元素向左所能扩展到的最大长度，并不是说在这一段区间内是单调的，而是保证在该区间内该元素一定是最大或最小。</strong></p>
+
+<p>我们有如下的性质：</p>
+
+<ol>
+<li>如果当前元素大于前一元素，那么前一元素能扩展到当前元素，同时说明前面的数对当前元素来说是没有贡献的</li>
+<li>如果当前元素小于等于前一个元素，那么前面至少有一个元素不能扩展到当前元素的位置，那么这些不能继续扩展的元素的存在显的没有什么意义了，不妨删除它。</li>
+</ol>
+
+
+<p>我们得到两条结论：</p>
+
+<p>1.一旦一个元素已经进入栈中那么这个元素向左扩展的位置就确定下来了.</p>
+
+<p>2.一旦一个元素出栈被弹出栈,那么这个元素向右扩展的位置也确定下来了.</p>
+
+<p>附本题代码：</p>
+
+<pre><code>#include&lt;iostream 
+#include&lt;stack&gt;
+#include&lt;stdio.h&gt;
+using namespace std;
+#define maxx 110000
+__int64 str[maxx],t[maxx];
+struct node
+{
+    __int64 num,pre,next;//num记录数值，pre记录向前延伸多少个，next记录向后延伸多少个,k记录本身所处的位置
+    __int64 k;
+};
+int main()
+{
+    int n;
+    while(scanf("%d",&amp;n)&gt;0)
+    {
+        stack&lt;node&gt;Q;
+        node tmp;
+        __int64 ans=-100,sum=-100,num;
+        str[0]=0;
+        for(__int64 i=1;i&lt;=n;i++)
+        {
+            scanf("%I64d",&amp;t[i]);
+            if(i==1)
+                str[i]=t[i];
+            else
+                str[i]=str[i-1]+t[i];
+        }
+        tmp.num=t[1];
+        tmp.pre=1;
+        tmp.next=1;
+        tmp.k=1;
+        Q.push(tmp);
+        __int64 x=0,y=0;
+        for(__int64 i=2;i&lt;=n;i++)
+        {
+            node tmp1;
+            tmp1.num=t[i];
+            tmp1.pre=tmp1.next=1;
+            tmp1.k=i;
+            while(!Q.empty()&amp;&amp;tmp1.num&lt;=Q.top().num)
+            {
+                tmp=Q.top();
+                Q.pop();
+                if(!Q.empty())
+                    Q.top().next+=tmp.next;
+                tmp1.pre+=tmp.pre;
+                ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
+                if(ans&gt;=sum)
+                {
+                    sum=ans;
+                    x=tmp.k-tmp.pre+1;
+                    y=tmp.k+tmp.next-1;
+                }
+            }
+            Q.push(tmp1);
+        }
+
+        while(!Q.empty())
+        {
+            tmp=Q.top();
+            Q.pop();
+            if(!Q.empty())
+                Q.top().next+=tmp.next;
+            ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
+            if(ans&gt;=sum)
+            {
+                sum=ans;
+                x=tmp.k-tmp.pre+1;
+                y=tmp.k+tmp.next-1;
+            }
+        }
+
+        if(n==0)x=y=0;
+        printf("%I64d\n%I64d %I64d\n",sum,x,y);
+    }
+    return 0;
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git基础知识]]></title>
+    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
+    <updated>2016-03-15T10:32:49+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
+    <content type="html"><![CDATA[<h1>Git原理</h1>
+
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
+<li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
+
+<p> 第一步是用<strong>git add把文件添加进去，实际上就是把文件修改添加到暂存区</strong>；</p>
+
+<p> 第二步是用<strong>git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。（注意这只是提交到本地库的分支）</strong></p></li>
+<li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
+<strong>这里有需要注意的地方：</strong></p>
+
+<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
+
+<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
+</ol>
+
+
+<h1>Git常用命令</h1>
+
+<ul>
+<li><p>git clone:如果不指定本地目录名，就同名，注意默认切出来的是master分支<br/>
+<code>git clone: &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></li>
+<li><p>git remote: Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名.<br/>
+  <code>git remote -v</code></p>
+
+<p>   octopress       git://github.com/imathis/octopress.git (fetch)<br/>
+   octopress       git://github.com/imathis/octopress.git (push)<br/>
+  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (fetch)
+  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (push)</p>
+
+<p>  克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用git clone命令的-o选项指定。<br/>
+  <code>git clone -o jQuery https://github.com/jquery/jquery.git</code></p>
+
+<p>  <code>git remote show &lt;主机名&gt;</code>: 查看该主机的详细信息<br/>
+  <code>git remote add &lt;主机名&gt; &lt;网址&gt;</code> : 命令用于添加远程主机。<br/>
+  <code>git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p>
+
+<p>  <strong>注意：</strong>  remote只代表对应的远程主机，并没有列出本地分支和远程分支之间的tracking information</p></li>
+<li><p>git pull: 取回远程主机<strong>某个分支</strong>的更新，再与<strong>本地的指定分支合并</strong>。它的完整格式稍稍有点复杂。 <br/>
+  <code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p>
+
+<p>  在某些场合，Git会自动在本地分支与远程分支之间，建立一种<strong>追踪关系</strong>(tracking)。比如，<strong>在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系</strong>，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
+
+<p>  Git也允许手动建立追踪关系：<br/>
+  <code>git branch --set-upstream master origin/next</code></p>
+
+<p>  上面命令指定<strong>本地master</strong>分支追踪origin/next分支，如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。<br/>
+  <code>git pull origin</code></p>
+
+<p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
+  <code>git pull</code><br/>
+  <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
+<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
+
+<p>  <code>* source 60511bd [origin/source] test</code></p>
+
+<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
+<li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
+<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
+
+<p>  <strong>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支(通常两者同名)，如果该远程分支不存在，则会被新建。</strong><br/>
+  <code>git push origin master</code><br/>
+上面命令表示，将<strong>本地的master</strong>分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
+
+<p>  如果当前分支只有一个追踪分支，那么主机名都可以省略。<br/>
+  <code>git push</code>  <strong>用这个命令一定要注意 当前的对应关系</strong></p></li>
+<li><p>git status:查看当前工作区的修改</p></li>
+<li><p>git log: 如果不带任何参数，它会列出所有历史记录，最近的排在最上方<br/>
+  <code>git log -n</code> : 选择显示前N条。<br/>
+  <code>git log --pretty=oneline</code> : 一行显示，只显示哈希值和提交说明。</p></li>
+<li><p>git reflog: 列出了head曾经指向过的一系列commit.</p></li>
+<li><p>git reset：回退版本<br/>
+  <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
+</ul>
+
+
+<p><strong>常用使用步骤</strong>：
+1. git status
+2. git add .   (删除文件：git rm file)
+3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
+4. git push  (当前只有一个追踪分支)</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[大学日记]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-five-blog/"/>
-    <updated>2016-03-15T13:57:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-five-blog</id>
+    <link href="http://blog.youngxiao.com/blog/2010/04/15/my-five-blog/"/>
+    <updated>2010-04-15T13:57:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2010/04/15/my-five-blog</id>
     <content type="html"><![CDATA[<pre><code>曾经在读书时记录的日记，记录下，留个纪念~
 </code></pre>
 
@@ -593,130 +808,149 @@ ACM不可能是大学学习的全部，我也不可能把它当作全部！自�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[POJ 2796 单调栈]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-third-blog/"/>
-    <updated>2016-03-15T12:22:24+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-third-blog</id>
-    <content type="html"><![CDATA[<p>题目：给你一个序列，求其中一个子序列使得这个子序列和乘以这个子序列中最小值后最大（注，序列的值>=0)</p>
+    <title type="html"><![CDATA[古老的面试题]]></title>
+    <link href="http://blog.youngxiao.com/blog/2009/05/06/interview/"/>
+    <updated>2009-05-06T19:23:49+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2009/05/06/interview</id>
+    <content type="html"><![CDATA[<p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
 
-<p><strong>分析：</strong></p>
+<pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。
+</code></pre>
 
-<p>（序列和 * 序列最小值）最大；对于一个元素，假设它是一个序列的最小值，则这个序列越长，最后的乘积就越大。</p>
+<p><!-- more -->　
+　<br/>
+2、12个球一个天平，现知道只有一个和其它的重量不同，问怎样称才能用三次就找到那个球。13个呢？（注意此题并未说明那个球的重量是轻是重，所以需要仔细考虑）</p>
 
-<p>所以对于题目，我们只要对于<strong>每个元素，计算出“以这个元素作为序列最小值时，得到的最大乘积”</strong>，然后比较，取出最大值即可。</p>
+<pre><code>答：
+一，先将球分三组A,B,C，每组四个，
+    假设A组：A1A2A3A4，B组：B1B2B3B4,C组：C1C2C3C4,   随便称两组，
+    如果天平平衡则在另一组中，假设另一组是C， 再从C组的四个中随便挑两个称，
+    假设是C1、C2，如果平衡，则在C3、C4中，从中挑一个与称过的两个中一个比较，
+    会得到答案，如果第二次比较不平衡，则就在C1、C2中，c3、c4中挑一个与C1比较，就会得出答案。
 
-<p>那问题的关键就在于，怎么得到 <strong>“以该元素作为序列最小值时的最长序列”，即从该元素开始像两边延伸到最大限度</strong></p>
+二，如果第一次称的时候天平不平衡，观察使那一边重了，（假设是A组重了），
+    则可知在这八个球中有这个不同的球，将这八个球再分三组。
+    E组3个：A1A2B1，F组3个：A3B2C1，(C1是正常的，这个分组很重要），G组3个：A4B3B4，称量E和F组：
+    如果平衡，则那个不同的球一定在G组中，要么是A4重了，要么是B3B4轻了，第三次称量B3B4即可。
+    如果不平衡，观察那边偏重，如果E组重，则要么是A1或A2偏重，要么是B2偏轻，
+    第三次称量A1A2即可，要是E组偏轻，则要么是A3偏重，要么是B1偏轻，第三次拿A3和一个正常的球相比即可。
+</code></pre>
+
+<p>　3、.在9个点上画10条直线，要求每条直线上至少有三个点？</p>
+
+<pre><code> 答 ●○●○●
+    ○●●●○
+    ●○●○●     把四个顶点向外围移动一格， 这样排列即可，黑点代表点。
+</code></pre>
+
+<p>4、在一天的24小时之中，时钟的时针、分针和秒针完全重合在一起的时候有几次？都分别是什么时间？你怎样算出来的？</p>
+
+<pre><code>答：这很明显，0点0分有一次，1:05之后有一次，2:10之后有一次，
+3:15之后有一次，4:20之后有一次，5:25之后有一次，6:30之后有一次，
+7:35之后有一次，8:40之后有一次，9:45之后有一次，10:50之后有一次，
+12:00整有一次。13:05后有一次。。。。24小时之中总共22次。
+而且，相邻两次重合之间所需时间相同，即12/11小时。
+准确说都分别是0点，12/11点，24/11点，36/11点，48/11点，
+60/11点，72/11点，84/11点，96/11点，108/11点，120/11点，
+12点，144/11点，156/11点，168/11点，180/11点，192/11点，
+204/11点，216/11点，228/11点，240/11点，252/11点。
+列出方程，像追赶问题一样，分针没转一圈就会重合一次。
+</code></pre>
+
+<p>5、你让工人为你工作7天，回报是一根金条，这个金条平分成相连的7段，你必须在每天结束的时候给他们一段金条。如果只允许你两次把金条弄断，你如何给你的工人付费？</p>
+
+<pre><code>答：切两刀，分为1/7、2/7、4/7三段。第一天给1/7；第二天给2/7，要回1/7；
+第三天给1/7 ；第四天给4/7 要回1/7+2/7；第五天给1/7；
+第六天给2/7，要会1/7；第七天给1/7
+</code></pre>
+
+<p>6、你有四个装药丸的罐子，每个药丸都有一定的重量，被污染的药丸是没被污染的药丸的重量+1。只称量一次，如何判断哪个罐子的药被污染了？</p>
+
+<pre><code>答：依次从四个罐子中取出1、2、3、4个药丸，根据称量结果判断！
+</code></pre>
+
+<p>7、门外三个开关分别对应室内三盏灯，线路良好，在门外控制开关时候不能看到室内灯的情况，现在只允许进门一次，确定开关和灯的对应关系？</p>
+
+<pre><code>答：先开一个，开很长时间。然后关掉，再开另一个。进去看，亮着的那个不用说。
+剩下的两个不亮的，按照灯泡的温度来进行判断。
+</code></pre>
+
+<p>　　
+8、人民币为什么只有1、2、5、10的面值？</p>
+
+<pre><code>答：因为在1--10这10个自然数中,有'重要数'和'非重要数'之分, 
+若用1.2.5.10就能以最少的加减组成另一些数,
+如1+2=3 2+2=4.1+5=6.2+5=7.10-2=8.10-1=9 
+如果将这四个'重要数' 中的任何一个数用'非重要数'代替,
+就会出现有的数要两次以上的加减才能组成另一些数的繁琐现象.
+因此,各套人民币包括纸币 硬币主要用1.2.5.10.作面值.
+</code></pre>
+
+<p>9、你有两个罐子以及50个红色弹球和50个蓝色弹球，你把球装入两个罐子里，然后随机选出一个罐子， 随机选出一个弹球，怎么给出红色弹球最大的选中机会？在你的计划里，得到红球的几率是多少？</p>
+
+<pre><code>答：一个罐子放一个红球,另一个罐子放49个红球和50个蓝球,
+概率接近75%. 这是所能达到的最大概率了。
+实际上，只要一个罐子放&lt;50个红球，不放篮球， 
+另一个罐子放剩下的球，拿出红球的概率就大于50% 。
+</code></pre>
+
+<p>难题：</p>
+
+<p>1.海盗分金问题</p>
+
+<p>2.一道关于飞机加油的问题，已知：</p>
+
+<p>　　每个飞机只有一个油箱， 飞机之间可以相互加油（注意是相互，没有加油机） 一箱油可供一架飞机绕地球飞半圈，为使至少一架飞机绕地球一圈回到起飞时的飞机场，至少需要出动几架飞机？（所有飞机从同一机场起飞，而且必须安全返回机场，不允许中途降落，中间没有飞机场）</p>
+
+<pre><code>解答：3架飞机（包括绕地球那架）（不妨设为a,b,c）
+
+a，b，c同时从机场A出发，到达E时，c给a，b加满油，自己返回。
+a，b继续飞行，到达B时，b给a加满油，自己返回。a继续飞行，可以飞到D点。
+返回的c在机场加满油后，反方向飞行，在D点给a加1/8路程的油。
+返回的b在机场加满油后，反方向飞行，在F点给a，c各加1/8路程的油。
+最后三架飞机同时飞回机场。
+</code></pre>
+
+<p>　　事实上，假设一架飞机装满油能飞行的距离设为单位1/2（则地球一圈为1），n架飞机能飞的最远的距离应该是：1/2+(n-1)/(2(n+1))，显然小于1，所以说，如果飞机只能沿一个方向飞，那么是不可能饶地球一圈的。但因为可以反方向飞，所有才有这个可能。并且2架飞机能够让饶地球的飞机多飞1/4的路程，然后这2架飞机回机场加满油后再反方向去支援，所以只需要3架飞机，耗油5箱。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
+    <link href="http://blog.youngxiao.com/blog/2009/03/20/my-four-blog/"/>
+    <updated>2009-03-20T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2009/03/20/my-four-blog</id>
+    <content type="html"><![CDATA[<h1>添加文章</h1>
+
+<ol>
+<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
+注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
+
+<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
+</ol>
+
 
 <!-- more -->
 
 
-<p>这个问题的特性就可以用单调栈来解决：</p>
-
-<p><strong>单调栈:顾名思义就是在入栈时遵循单调原则，可以求出一个元素向左所能扩展到的最大长度，并不是说在这一段区间内是单调的，而是保证在该区间内该元素一定是最大或最小。</strong></p>
-
-<p>我们有如下的性质：</p>
-
 <ol>
-<li>如果当前元素大于前一元素，那么前一元素能扩展到当前元素，同时说明前面的数对当前元素来说是没有贡献的</li>
-<li>如果当前元素小于等于前一个元素，那么前面至少有一个元素不能扩展到当前元素的位置，那么这些不能继续扩展的元素的存在显的没有什么意义了，不妨删除它。</li>
+<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
+<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
+<li><p>最后保存文章的code文件，提交到source目录下</p>
+
+<p>git add .<br/>
+git commit -m “your message”<br/>
+git push origin source</p></li>
 </ol>
 
-
-<p>我们得到两条结论：</p>
-
-<p>1.一旦一个元素已经进入栈中那么这个元素向左扩展的位置就确定下来了.</p>
-
-<p>2.一旦一个元素出栈被弹出栈,那么这个元素向右扩展的位置也确定下来了.</p>
-
-<p>附本题代码：</p>
-
-<pre><code>#include&lt;iostream 
-#include&lt;stack&gt;
-#include&lt;stdio.h&gt;
-using namespace std;
-#define maxx 110000
-__int64 str[maxx],t[maxx];
-struct node
-{
-    __int64 num,pre,next;//num记录数值，pre记录向前延伸多少个，next记录向后延伸多少个,k记录本身所处的位置
-    __int64 k;
-};
-int main()
-{
-    int n;
-    while(scanf("%d",&amp;n)&gt;0)
-    {
-        stack&lt;node&gt;Q;
-        node tmp;
-        __int64 ans=-100,sum=-100,num;
-        str[0]=0;
-        for(__int64 i=1;i&lt;=n;i++)
-        {
-            scanf("%I64d",&amp;t[i]);
-            if(i==1)
-                str[i]=t[i];
-            else
-                str[i]=str[i-1]+t[i];
-        }
-        tmp.num=t[1];
-        tmp.pre=1;
-        tmp.next=1;
-        tmp.k=1;
-        Q.push(tmp);
-        __int64 x=0,y=0;
-        for(__int64 i=2;i&lt;=n;i++)
-        {
-            node tmp1;
-            tmp1.num=t[i];
-            tmp1.pre=tmp1.next=1;
-            tmp1.k=i;
-            while(!Q.empty()&amp;&amp;tmp1.num&lt;=Q.top().num)
-            {
-                tmp=Q.top();
-                Q.pop();
-                if(!Q.empty())
-                    Q.top().next+=tmp.next;
-                tmp1.pre+=tmp.pre;
-                ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
-                if(ans&gt;=sum)
-                {
-                    sum=ans;
-                    x=tmp.k-tmp.pre+1;
-                    y=tmp.k+tmp.next-1;
-                }
-            }
-            Q.push(tmp1);
-        }
-
-        while(!Q.empty())
-        {
-            tmp=Q.top();
-            Q.pop();
-            if(!Q.empty())
-                Q.top().next+=tmp.next;
-            ans=tmp.num*(str[tmp.k+tmp.next-1]-str[tmp.k-tmp.pre]);
-            if(ans&gt;=sum)
-            {
-                sum=ans;
-                x=tmp.k-tmp.pre+1;
-                y=tmp.k+tmp.next-1;
-            }
-        }
-
-        if(n==0)x=y=0;
-        printf("%I64d\n%I64d %I64d\n",sum,x,y);
-    }
-    return 0;
-}
-</code></pre>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress+GitHub 搭建个人博客]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-second-blog/"/>
-    <updated>2016-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-second-blog</id>
+    <link href="http://blog.youngxiao.com/blog/2009/03/15/my-second-blog/"/>
+    <updated>2009-03-15T10:56:57+08:00</updated>
+    <id>http://blog.youngxiao.com/blog/2009/03/15/my-second-blog</id>
     <content type="html"><![CDATA[<p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
 <p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
@@ -829,240 +1063,6 @@ gem sources -l
 <li><p>2、octopress/_deploy目录是blog网站文件的目录，访问网站需要的文件都在这个目录里，它对应github上的master分支，所以要想更新blog，内容必须提交到master分支才会有效。</p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopress怎么添加文章]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-four-blog/"/>
-    <updated>2016-03-15T10:56:57+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-four-blog</id>
-    <content type="html"><![CDATA[<h1>添加文章</h1>
-
-<ol>
-<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
-注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
-
-<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
-</ol>
-
-
-<!-- more -->
-
-
-<ol>
-<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
-<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
-<li><p>最后保存文章的code文件，提交到source目录下</p>
-
-<p>git add .<br/>
-git commit -m “your message”<br/>
-git push origin source</p></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Git基础知识]]></title>
-    <link href="http://blog.youngxiao.com/blog/2016/03/15/my-first-blog/"/>
-    <updated>2016-03-15T10:32:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
-    <content type="html"><![CDATA[<h1>Git原理</h1>
-
-<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
-
-<!-- more -->
-
-
-<ol>
-<li><p>工作区有一个隐藏目录.git，这就是Git在本机的版本库。 Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。</p></li>
-<li><p>我们把文件往Git版本库里添加的时候，是分两步执行的：</p>
-
-<p> 第一步是用<strong>git add把文件添加进去，实际上就是把文件修改添加到暂存区</strong>；</p>
-
-<p> 第二步是用<strong>git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。（注意这只是提交到本地库的分支）</strong></p></li>
-<li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
-<strong>这里有需要注意的地方：</strong></p>
-
-<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
-
-<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
-</ol>
-
-
-<h1>Git常用命令</h1>
-
-<ul>
-<li><p>git clone:如果不指定本地目录名，就同名，注意默认切出来的是master分支<br/>
-<code>git clone: &lt;版本库的网址&gt; &lt;本地目录名&gt;</code></p></li>
-<li><p>git remote: Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名.<br/>
-  <code>git remote -v</code></p>
-
-<p>   octopress       git://github.com/imathis/octopress.git (fetch)<br/>
-   octopress       git://github.com/imathis/octopress.git (push)<br/>
-  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (fetch)
-  origin  <a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io</a> (push)</p>
-
-<p>  克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用git clone命令的-o选项指定。<br/>
-  <code>git clone -o jQuery https://github.com/jquery/jquery.git</code></p>
-
-<p>  <code>git remote show &lt;主机名&gt;</code>: 查看该主机的详细信息<br/>
-  <code>git remote add &lt;主机名&gt; &lt;网址&gt;</code> : 命令用于添加远程主机。<br/>
-  <code>git remote rename &lt;原主机名&gt; &lt;新主机名&gt;</code></p>
-
-<p>  <strong>注意：</strong>  remote只代表对应的远程主机，并没有列出本地分支和远程分支之间的tracking information</p></li>
-<li><p>git pull: 取回远程主机<strong>某个分支</strong>的更新，再与<strong>本地的指定分支合并</strong>。它的完整格式稍稍有点复杂。 <br/>
-  <code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code></p>
-
-<p>  在某些场合，Git会自动在本地分支与远程分支之间，建立一种<strong>追踪关系</strong>(tracking)。比如，<strong>在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系</strong>，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
-
-<p>  Git也允许手动建立追踪关系：<br/>
-  <code>git branch --set-upstream master origin/next</code></p>
-
-<p>  上面命令指定<strong>本地master</strong>分支追踪origin/next分支，如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。<br/>
-  <code>git pull origin</code></p>
-
-<p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
-  <code>git pull</code><br/>
-  <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
-<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
-
-<p>  <code>* source 60511bd [origin/source] test</code></p>
-
-<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
-<li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
-<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
-
-<p>  <strong>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支(通常两者同名)，如果该远程分支不存在，则会被新建。</strong><br/>
-  <code>git push origin master</code><br/>
-上面命令表示，将<strong>本地的master</strong>分支推送到origin主机的master分支。如果后者不存在，则会被新建。</p>
-
-<p>  如果当前分支只有一个追踪分支，那么主机名都可以省略。<br/>
-  <code>git push</code>  <strong>用这个命令一定要注意 当前的对应关系</strong></p></li>
-<li><p>git status:查看当前工作区的修改</p></li>
-<li><p>git log: 如果不带任何参数，它会列出所有历史记录，最近的排在最上方<br/>
-  <code>git log -n</code> : 选择显示前N条。<br/>
-  <code>git log --pretty=oneline</code> : 一行显示，只显示哈希值和提交说明。</p></li>
-<li><p>git reflog: 列出了head曾经指向过的一系列commit.</p></li>
-<li><p>git reset：回退版本<br/>
-  <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
-</ul>
-
-
-<p><strong>常用使用步骤</strong>：
-1. git status
-2. git add .   (删除文件：git rm file)
-3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
-4. git push  (当前只有一个追踪分支)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[古老的面试题]]></title>
-    <link href="http://blog.youngxiao.com/blog/2009/05/06/interview/"/>
-    <updated>2009-05-06T19:23:49+08:00</updated>
-    <id>http://blog.youngxiao.com/blog/2009/05/06/interview</id>
-    <content type="html"><![CDATA[<p>1、一个岔路口分别通向诚实国和说谎国。来了两个人，已知一个是诚实国的，另一个是说谎国的。诚实国永远说实话，说谎国永远说谎话。现在你要去说谎国，但不知道应该走哪条路，需要问这两个人。请问应该怎么问？</p>
-
-<pre><code>答：问“你的国家怎么走”，他肯定指向的是诚实国。
-</code></pre>
-
-<p><!-- more -->　
-　<br/>
-2、12个球一个天平，现知道只有一个和其它的重量不同，问怎样称才能用三次就找到那个球。13个呢？（注意此题并未说明那个球的重量是轻是重，所以需要仔细考虑）</p>
-
-<pre><code>答：
-一，先将球分三组A,B,C，每组四个，
-    假设A组：A1A2A3A4，B组：B1B2B3B4,C组：C1C2C3C4,   随便称两组，
-    如果天平平衡则在另一组中，假设另一组是C， 再从C组的四个中随便挑两个称，
-    假设是C1、C2，如果平衡，则在C3、C4中，从中挑一个与称过的两个中一个比较，
-    会得到答案，如果第二次比较不平衡，则就在C1、C2中，c3、c4中挑一个与C1比较，就会得出答案。
-
-二，如果第一次称的时候天平不平衡，观察使那一边重了，（假设是A组重了），
-    则可知在这八个球中有这个不同的球，将这八个球再分三组。
-    E组3个：A1A2B1，F组3个：A3B2C1，(C1是正常的，这个分组很重要），G组3个：A4B3B4，称量E和F组：
-    如果平衡，则那个不同的球一定在G组中，要么是A4重了，要么是B3B4轻了，第三次称量B3B4即可。
-    如果不平衡，观察那边偏重，如果E组重，则要么是A1或A2偏重，要么是B2偏轻，
-    第三次称量A1A2即可，要是E组偏轻，则要么是A3偏重，要么是B1偏轻，第三次拿A3和一个正常的球相比即可。
-</code></pre>
-
-<p>　3、.在9个点上画10条直线，要求每条直线上至少有三个点？</p>
-
-<pre><code> 答 ●○●○●
-    ○●●●○
-    ●○●○●     把四个顶点向外围移动一格， 这样排列即可，黑点代表点。
-</code></pre>
-
-<p>4、在一天的24小时之中，时钟的时针、分针和秒针完全重合在一起的时候有几次？都分别是什么时间？你怎样算出来的？</p>
-
-<pre><code>答：这很明显，0点0分有一次，1:05之后有一次，2:10之后有一次，
-3:15之后有一次，4:20之后有一次，5:25之后有一次，6:30之后有一次，
-7:35之后有一次，8:40之后有一次，9:45之后有一次，10:50之后有一次，
-12:00整有一次。13:05后有一次。。。。24小时之中总共22次。
-而且，相邻两次重合之间所需时间相同，即12/11小时。
-准确说都分别是0点，12/11点，24/11点，36/11点，48/11点，
-60/11点，72/11点，84/11点，96/11点，108/11点，120/11点，
-12点，144/11点，156/11点，168/11点，180/11点，192/11点，
-204/11点，216/11点，228/11点，240/11点，252/11点。
-列出方程，像追赶问题一样，分针没转一圈就会重合一次。
-</code></pre>
-
-<p>5、你让工人为你工作7天，回报是一根金条，这个金条平分成相连的7段，你必须在每天结束的时候给他们一段金条。如果只允许你两次把金条弄断，你如何给你的工人付费？</p>
-
-<pre><code>答：切两刀，分为1/7、2/7、4/7三段。第一天给1/7；第二天给2/7，要回1/7；
-第三天给1/7 ；第四天给4/7 要回1/7+2/7；第五天给1/7；
-第六天给2/7，要会1/7；第七天给1/7
-</code></pre>
-
-<p>6、你有四个装药丸的罐子，每个药丸都有一定的重量，被污染的药丸是没被污染的药丸的重量+1。只称量一次，如何判断哪个罐子的药被污染了？</p>
-
-<pre><code>答：依次从四个罐子中取出1、2、3、4个药丸，根据称量结果判断！
-</code></pre>
-
-<p>7、门外三个开关分别对应室内三盏灯，线路良好，在门外控制开关时候不能看到室内灯的情况，现在只允许进门一次，确定开关和灯的对应关系？</p>
-
-<pre><code>答：先开一个，开很长时间。然后关掉，再开另一个。进去看，亮着的那个不用说。
-剩下的两个不亮的，按照灯泡的温度来进行判断。
-</code></pre>
-
-<p>　　
-8、人民币为什么只有1、2、5、10的面值？</p>
-
-<pre><code>答：因为在1--10这10个自然数中,有'重要数'和'非重要数'之分, 
-若用1.2.5.10就能以最少的加减组成另一些数,
-如1+2=3 2+2=4.1+5=6.2+5=7.10-2=8.10-1=9 
-如果将这四个'重要数' 中的任何一个数用'非重要数'代替,
-就会出现有的数要两次以上的加减才能组成另一些数的繁琐现象.
-因此,各套人民币包括纸币 硬币主要用1.2.5.10.作面值.
-</code></pre>
-
-<p>9、你有两个罐子以及50个红色弹球和50个蓝色弹球，你把球装入两个罐子里，然后随机选出一个罐子， 随机选出一个弹球，怎么给出红色弹球最大的选中机会？在你的计划里，得到红球的几率是多少？</p>
-
-<pre><code>答：一个罐子放一个红球,另一个罐子放49个红球和50个蓝球,
-概率接近75%. 这是所能达到的最大概率了。
-实际上，只要一个罐子放&lt;50个红球，不放篮球， 
-另一个罐子放剩下的球，拿出红球的概率就大于50% 。
-</code></pre>
-
-<p>难题：</p>
-
-<p>1.海盗分金问题</p>
-
-<p>2.一道关于飞机加油的问题，已知：</p>
-
-<p>　　每个飞机只有一个油箱， 飞机之间可以相互加油（注意是相互，没有加油机） 一箱油可供一架飞机绕地球飞半圈，为使至少一架飞机绕地球一圈回到起飞时的飞机场，至少需要出动几架飞机？（所有飞机从同一机场起飞，而且必须安全返回机场，不允许中途降落，中间没有飞机场）</p>
-
-<pre><code>解答：3架飞机（包括绕地球那架）（不妨设为a,b,c）
-
-a，b，c同时从机场A出发，到达E时，c给a，b加满油，自己返回。
-a，b继续飞行，到达B时，b给a加满油，自己返回。a继续飞行，可以飞到D点。
-返回的c在机场加满油后，反方向飞行，在D点给a加1/8路程的油。
-返回的b在机场加满油后，反方向飞行，在F点给a，c各加1/8路程的油。
-最后三架飞机同时飞回机场。
-</code></pre>
-
-<p>　　事实上，假设一架飞机装满油能飞行的距离设为单位1/2（则地球一圈为1），n架飞机能飞的最远的距离应该是：1/2+(n-1)/(2(n+1))，显然小于1，所以说，如果飞机只能沿一个方向飞，那么是不可能饶地球一圈的。但因为可以反方向飞，所有才有这个可能。并且2架飞机能够让饶地球的飞机多飞1/4的路程，然后这2架飞机回机场加满油后再反方向去支援，所以只需要3架飞机，耗油5箱。</p>
 ]]></content>
   </entry>
   
