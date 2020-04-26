@@ -90,10 +90,7 @@
 
 <div class="entry-content"><h1>Git原理</h1>
 
-<ol>
-<li>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</li>
-</ol>
-
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
 
 <!-- more -->
 
@@ -108,10 +105,9 @@
 <li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
 <strong>这里有需要注意的地方：</strong></p>
 
-<pre><code> A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io”这个仓库，其实它在github上可能有几个分支。
+<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
 
- B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的**本地master分支** 与 **远程master分支**之间的联系。
-</code></pre></li>
+<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
 </ol>
 
 
@@ -150,6 +146,11 @@
 <p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
   <code>git pull</code><br/>
   <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
+<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
+
+<p>  <code>* source 60511bd [origin/source] test</code></p>
+
+<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
 <li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
 <code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
 
@@ -168,6 +169,12 @@
   <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
 </ul>
 
+
+<p><strong>常用使用步骤</strong>：
+1. git status
+2. git add .   (删除文件：git rm file)
+3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
+4. git push  (当前只有一个追踪分支)</p>
 </div>
 
 

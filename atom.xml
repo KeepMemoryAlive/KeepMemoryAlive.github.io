@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-04-24T17:35:40+08:00</updated>
+  <updated>2020-04-26T13:41:07+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -18,13 +18,46 @@
     <link href="http://blog.youngxiao.com/blog/2020/04/16/thinking/"/>
     <updated>2020-04-16T16:45:23+08:00</updated>
     <id>http://blog.youngxiao.com/blog/2020/04/16/thinking</id>
-    <content type="html"><![CDATA[<p>计算机思维和人的思维的差异：比如计算2000-12-01到2234-09-01的所有日期中一共有多少个9，常人思维：没办法每个日期都列出来数一遍，就去尝试分情况每位去统计；而计算机思维：从开始到结束，每个日期列出来，并不困难，</p>
+    <content type="html"><![CDATA[<p>计算机解决问题的方法和思路是有一些特别的，特意留意这些区别和方法有助于思考和解决一些问题。</p>
 
-<p>DP: 最重要的是 转移方程, 父问题怎么转移到子问题中,最小的子问题很容易解决,从而推导出父问题的答案, 比如斐波那契数列 f(n) = f(n-1) + f(n-2)</p>
+<!-- more -->
+
+
+<ol>
+<li><p>穷举法</p>
+
+<p>在常人思维里, 一旦需要列举的数量成千上万，就没办法一一列举进行统计，转而尝试用<strong>统计计算</strong>的方法来得到答案;</p>
+
+<p>而计算机思维里, 只要数量级不是非常高(在时间宽松的情况下), 都可以通过穷举的方法轻松列举出来.</p>
+
+<p>例子：</p>
+
+<p>计算2000-12-01到2234-09-01的所有日期中一共有多少个9？ 只需把日期按20010909这种格式，从开始到结束一一列出，</p>
+
+<p>对每个数字按位统计即可。</p></li>
+<li><p>搜索法</p>
+
+<p>常人而言，对一个问题分析，分n种情况，每种情况下再继续分m中情况分析；正常人的大脑脑力，很难记住每种情况的结果。</p>
+
+<p>在计算领域里，这类问题可以通过搜索算法解决，配合辅助数据结构，来达到遍历分支的每种情况。</p>
+
+<p>搜索算法又根据具体问题分为很多种：BFS DFS 等等</p>
 
 <p>BFS：广度优先搜索，一种穷举搜索的思想：先搜索第一层，全部搜完后，再搜第2层，依次下去&hellip; 用队列非常容易实现。</p>
 
-<p>线段树:</p>
+<p>对于九宫格里最短路径之类的问题，往往可以采用BFS解决。</p>
+
+<p>DFS：深度优先搜索，指根据一种情况搜索到底，然后再<strong>逐步回溯</strong>，再搜索到底，直到所有的情况的搜索完。</p>
+
+<p>和BFS不同的是，它在搜索过程中，能够较快的丢弃不合适的分支情况。<strong>DFS采用递归来实现相对简单，在实现时，递归子调用后，</strong></p>
+
+<p><strong>往往需要把状态复原，以达到回溯的目的。</strong></p>
+
+<p>这些搜索非常重要的一点：<strong>状态保存。在搜索过程中，需要保存搜索到某个节点时的状态数据，以便后续接着这个节点搜索时</strong></p>
+
+<p><strong>获得数据继续进行，</strong></p></li>
+</ol>
+
 ]]></content>
   </entry>
   
@@ -837,10 +870,7 @@ git push origin source</p></li>
     <id>http://blog.youngxiao.com/blog/2016/03/15/my-first-blog</id>
     <content type="html"><![CDATA[<h1>Git原理</h1>
 
-<ol>
-<li>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</li>
-</ol>
-
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。重点在于<strong>分布式</strong>，每个人的电脑上都是一个完整的版本库，所以<strong>使用Git Commit的时候，不是提交到服务器，而是提交到本地的版本库</strong>。</p>
 
 <!-- more -->
 
@@ -855,10 +885,9 @@ git push origin source</p></li>
 <li><p>远程仓库，指保存在服务器上的仓库，这里主要指github上托管的仓库。
 <strong>这里有需要注意的地方：</strong></p>
 
-<pre><code> A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io”这个仓库，其实它在github上可能有几个分支。
+<p>  A、github上建立仓库后，它也有分支的概念，本地仓库也有分支的概念，比如“<a href="https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82">https://github.com/KeepMemoryAlive/KeepMemoryAlive.github.io%E2%80%9D%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%AE%83%E5%9C%A8github%E4%B8%8A%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E5%88%86%E6%94%AF%E3%80%82</a></p>
 
- B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的**本地master分支** 与 **远程master分支**之间的联系。
-</code></pre></li>
+<p>  B、本地仓库和远程库之间 必须要有tracking information，才能push 和 pull, 当我们用git clone时， 默认是建立的<strong>本地master分支</strong> 与 <strong>远程master分支</strong>之间的联系。</p></li>
 </ol>
 
 
@@ -897,6 +926,11 @@ git push origin source</p></li>
 <p>  如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br/>
   <code>git pull</code><br/>
   <strong>注意：用git pull时 一定要注意，本地分支与远程分支的对应关系，避免提错了</strong></p></li>
+<li><p>git branch -vv : 查看本地分支与远程分支的对应关系</p>
+
+<p>  <code>* source 60511bd [origin/source] test</code></p>
+
+<p>  *指当前所在本地分支，[]里为远程分支  test指最新的一个提交log</p></li>
 <li><p>git push:用于将本地分支的更新，推送到远程主机， 就是把本地库和远程库同步，相当于svn的提交。<br/>
 <code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code></p>
 
@@ -915,6 +949,12 @@ git push origin source</p></li>
   <code>git reset --hard 66a4b03</code> 回退到66a4b03指定的版本，这个指通过 git reflog可以查看</p></li>
 </ul>
 
+
+<p><strong>常用使用步骤</strong>：
+1. git status
+2. git add .   (删除文件：git rm file)
+3. git commit -m &ldquo;messages&rdquo;  (这里后面不用跟文件名之类的)
+4. git push  (当前只有一个追踪分支)</p>
 ]]></content>
   </entry>
   
