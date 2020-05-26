@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Linux 网络收包过程 - coding</title>
+  <meta name="author" content="young">
+
+  
+  <meta name="description" content="linux 网卡收包 中断分析">
+  <meta name="keywords" content="网卡, 中断,">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.youngxiao.com/blog/newwork-card/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="coding" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">coding</a></h1>
+  
+    <h2>one coder's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.baidu.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="blog.youngxiao.com">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Linux 网络收包过程</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2020-05-22T13:23:49+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2020</span></span> <span class='time'>1:23 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.youngxiao.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>简要</h2>
+
+<p>网络数据 从网卡到socket之间 系统是怎么处理的？涉及哪些系统消耗？在分析服务器性能时，了解这些原理往往能给我们很大帮助。</p>
+
+<!-- more -->
+
+
+<h3>名词简介</h3>
+
+<ul>
+<li>DMA : Direct Memory Access 直接内存访问，是外设硬件的特性，不需要通过CPU操作。</li>
+<li>NAPI ：New Api 网卡驱动程序的一个框架，可以提高网络性能。</li>
+<li>NIC : Network Interface Controller 即网卡</li>
+<li>RX ：Receive X</li>
+<li>TX : Transmit X</li>
+<li>IRQ : Interrupt Request &mdash;> a hardware signal sent to the processor that temporarily stops a running program and allows a special program (有的说法:硬中断、硬件中断)</li>
+<li>Softirq : 中断处理的后半部分,只是它处理的是相对不那么紧急，显得"soft"一些的部分.</li>
+<li>ksoftirqd :  kernel softirq daemon 内核处理softirq的守护进程</li>
+<li>RPS ： Receive Packet Steering 内核的一个特性 用来把softirq分给指定的cpu处理</li>
+</ul>
+
+
+<h2>过程总览</h2>
+
+<ol>
+<li>数据包从网络到达NIC</li>
+<li>数据包通过DMA被拷贝到一块特殊内存中</li>
+<li>NIC产生一个IRQ 通知系统 数据包已经在内存中了</li>
+<li>系统处理IRQ，调用对应中断处理程序即NAPI,去处理内存中的数据</li>
+<li>处理完后，NAPI最后会产生一个softirq</li>
+<li>最后ksoftirqd程序处理softirq把数据包丢给内核协议栈</li>
+</ol>
+
+
+<p>整个过程中有几点需要注意:
+- 第2步中，不同的NIC可能拥有的队列数不一致，即常说的“<strong>网卡是否多队列</strong>”，很明显队列越多 网卡性能越好.
+- <strong>每个队列对应一个IRQ中断号</strong>, 比如八队列网卡，在/proc/interrupt里搜索eth相关即可得到8个中断号
+- Cpu从第4步处理IRQ开始参与，根据中断号n, 在/proc/irq/n/smp_affinity中可以查看 该中断由哪些cpu处理
+- 第6步处理softirq的cpu, 如果不开启RPS的话, 会由上一步的同一个cpu接着处理
+- <strong>softirq并不是指“软件中断”，它其实也是处理硬件中断的一部分，只是延后处理，所以叫soft.</strong></p>
+
+<h3>softirq机制</h3>
+
+<p>中断处理“下半部”机制</p>
+
+<p>中断服务程序一般都是在中断请求关闭(屏蔽)的条件下执行的，以避免嵌套而使中断控制复杂化。但是，中断是一个随机事件，它随时会到来，如果关中断的时间太长，CPU就不能及时响应其他的中断请求，从而造成中断的丢失，因此，Linux内核的目标就是尽可能快的处理完中断请求，尽其所能把更多的处理向后推迟。</p>
+
+<p>所以IRQ处理程序一定很快很简单，处理完后就解除屏蔽，并产生一个softirq，通知系统处理后续未完事宜，这就是softirq的由来。
+因此，内核把中断处理其实分为了两部分：上半部（top-half）和下半部（bottom-half），上半部IRQ（就是中断服务程序）内核立即执行，而下半部softirq（就是一些内核函数）留着稍后处理.</p>
+
+<p><strong>top命令中的%si 就是softirq所占的cpu使用率</strong></p>
+
+<p><strong>/proc/softirqs 中可以看到各个cpu处理的softirq统计，NET_RX即网络收包中断</strong></p>
+
+<h3>RPS</h3>
+
+<p>Receive Packet Steering 可以认为是网卡多队列的一个软件实现；</p>
+
+<p>对网卡多队列而言，因为有多个队列，所以有多个中断IRQ，接着softirq就会被多个cpu处理。</p>
+
+<p>而对网卡单队列而言，只有一个队列，一个中断号IRQ，由上文得知，softirq也会被同一个cpu处理</p>
+
+<p>设置rps后，即处理softirq的cpu就不一定和处理IRQ的cpu一致，可以均匀分配给多个cpu</p>
+
+<p>在网卡单队列或者双队列，但是cpu8核甚至更多核的场景，rps是很有作用的</p>
+
+<p>设置RPS非常简单：/sys/class/net/eth<em>/queues/rx-</em>/rps_cpus 文件写入cpu mask, 比如cpu0+cpu1 即设置为3
+不用其他操作直接生效</p>
+
+<h2>性能分析</h2>
+
+<p>整个过程中那些地方对服务器性能有影响呢？</p>
+
+<ol>
+<li>网卡队列数肯定越多 网卡性能越好</li>
+<li>网卡队列产生的IRQ 可以通过/proc/irq/n/smp_affinity绑定指定cpu来执行, 也是设置cpu mask，即时生效
+也可以设置为多个cpu，，这样IRQ会被分布到多个cpu执行，但是在实际应用中，一般把单个中断绑定单一固定cpu，
+已提高cpu缓存命中率，提高性能。</li>
+</ol>
+
+
+<p>为什么要将中断绑定到固定CPU？</p>
+
+<pre><code>In order to achieve the best performance, it is recommended that all the interruptions
+generated by a device queue is handled by the same CPU, instead of IRQ balancing.
+Although it is not expected, round robin IRQ distribution is not good for performance 
+because when the interruption go to another fresh CPU, the new CPU
+probably will not have the interrupt handler function in the cache,
+and a long time will be required to get the properly interrupt handler 
+from the main memory and run it. On the other hand, if the same CPU handles
+the same IRQ almost all the time, the IRQ handler function will unlikely 
+leave the CPU cache, boosting the kernel performance。
+</code></pre>
+
+<ol>
+<li><p>RPS设置可以灵活运用，避免单个cpu的si占用率过高，并且当si过高时，该cpu上的用户态程序会受严重影响，
+花费很多cpu用在上下文切换；<strong>所以实际应用中，应该避免单个cpu si过高 或者 应用程序避开si过高的cpu</strong>。</p></li>
+<li><p><strong>多队列网卡 队列够多的情况下，比如8队列；通过分开绑定proc/irq/n/smp_affinity到单个cpu, 后续的softirq自然也分布到不同的cpu上，就无需再设置RPS</strong></p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">young</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2020-05-22T13:23:49+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2020</span></span> <span class='time'>1:23 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.youngxiao.com/blog/newwork-card/" data-via="" data-counturl="http://blog.youngxiao.com/blog/newwork-card/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/thinking/" title="Previous Post: 计算机思维">&laquo; 计算机思维</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/newwork-card/">Linux 网络收包过程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/thinking/">计算机思维</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/net/">Linux Ip命令详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/cpuinfo/">Linux 多核cpu负载分析</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/smoba-tech/">Lockstep</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+ <h1>Categories</h1>
+ <ul id="categories">
+  <li class='category'><a href='/blog/categories/algorithm/'>algorithm (2)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (3)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (3)</a></li>
+<li class='category'><a href='/blog/categories/words/'>words (2)</a></li>
+
+ </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2020 - young -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'blog-youngxiao-com';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.youngxiao.com/blog/newwork-card/';
+        var disqus_url = 'http://blog.youngxiao.com/blog/newwork-card/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

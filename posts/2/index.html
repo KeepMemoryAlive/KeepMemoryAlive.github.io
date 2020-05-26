@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress怎么添加文章 - coding</title>
+  <title>coding</title>
   <meta name="author" content="young">
 
   
-  <meta name="description" content="添加文章 rake new_post['my first octopress blog'] 这样可以生成一片文章的源文件。
-注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog &hellip;">
-  <meta name="keywords" content="octopress, git,">
+  <meta name="description" content="1. Octopress是博客工具，一套用来生成blog的系统。 2. GitHub是用来托管blog网页的网站 ">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.youngxiao.com/blog/my-four-blog/">
+  <link rel="canonical" href="http://blog.youngxiao.com/posts/2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="coding" type="application/atom+xml">
@@ -65,12 +64,15 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      <h1 class="entry-title">Octopress怎么添加文章</h1>
+      <h1 class="entry-title"><a href="/blog/my-second-blog/">Octopress+GitHub 搭建个人博客</a></h1>
     
     
       <p class="meta">
@@ -79,94 +81,39 @@
 
 
 
-<time class='entry-date' datetime='2009-03-20T10:56:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>10:56 am</span></time>
+<time class='entry-date' datetime='2009-03-15T10:56:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>10:56 am</span></time>
         
-           | <a href="#disqus_thread"
-             data-disqus-identifier="http://blog.youngxiao.com">Comments</a>
+           | <a href="/blog/my-second-blog/#disqus_thread"
+             data-disqus-identifier="http://blog.youngxiao.com/blog/my-second-blog/">Comments</a>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h1>添加文章</h1>
+  <div class="entry-content"><p><strong>1. Octopress是博客工具，一套用来生成blog的系统。</strong></p>
 
-<ol>
-<li><p><code>rake new_post['my first octopress blog']</code> 这样可以生成一片文章的源文件。<br/>
-注意，rake new_post[&lsquo;my first octopress blog&rsquo;]中的my first octopress blog 并不是博客标题，而是和生成的文件名以及url地址有关，该名称不支持中文。博客标题可以在生成的markdown文件中修改。生成的markdown文件在octopress/source/_posts目录中。</p>
-
-<p>  可以用<em>markdownpad</em>直接编译这个文件，来写blog内容。</p></li>
-</ol>
-
-
-<!-- more -->
-
-
-<ol>
-<li><p>每次写完blog后，需要执行rake generate，这时生成真正的网页文件。</p></li>
-<li><p>然后再执行命令rake deploy 就可以将本地的内容发布到Github上。</p></li>
-<li><p>最后保存文章的code文件，提交到source目录下</p>
-
-<p>git add .<br/>
-git commit -m “your message”<br/>
-git push origin source</p></li>
-</ol>
+<p><strong>2. GitHub是用来托管blog网页的网站</strong></p>
 
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/my-second-blog/">阅读更多 →</a>
+    </footer>
   
 
-<span class="byline author vcard">Posted by <span class="fn">young</span></span>
 
-      
-
-
-
-
-<time class='entry-date' datetime='2009-03-20T10:56:57+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2009</span></span> <span class='time'>10:56 am</span></time>
-      
-
-<span class="categories">
+    </article>
   
-    <a class='category' href='/blog/categories/git/'>git</a>
-  
-</span>
-
-
-    </p>
+  <div class="pagination">
     
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.youngxiao.com/blog/my-four-blog/" data-via="" data-counturl="http://blog.youngxiao.com/blog/my-four-blog/" >Tweet</a>
-  
-  
-  
-</div>
-
+    <a href="/blog/archives">Blog Archives</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/my-second-blog/" title="Previous Post: Octopress+GitHub 搭建个人博客">&laquo; Octopress+GitHub 搭建个人博客</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/interview/" title="Next Post: 古老的面试题">古老的面试题 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a class="next" href="/index.html">Newer &rarr;</a>
+    
+  </div>
 </div>
-  </section>
-
-</div>
-
 <aside class="sidebar">
   
     <section>
@@ -212,7 +159,6 @@ git push origin source</p></li>
   
 </aside>
 
-
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -227,10 +173,7 @@ git push origin source</p></li>
       var disqus_shortname = 'blog-youngxiao-com';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.youngxiao.com/blog/my-four-blog/';
-        var disqus_url = 'http://blog.youngxiao.com/blog/my-four-blog/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
