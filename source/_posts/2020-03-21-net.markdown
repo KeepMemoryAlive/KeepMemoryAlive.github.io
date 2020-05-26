@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Linux 网络知识进阶"
+title: "Linux ip命令详解"
 date: 2020-03-21 17:23:49 +0800
 comments: true
 categories: Linux
 tags: [linux, 网络, UDP]
 keywords: ip, tunnel, route
-description: linux 网络分析
+description: linux ip命令
 ---
 ## 背景
 
