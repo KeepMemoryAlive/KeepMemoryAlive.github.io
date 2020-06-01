@@ -4,7 +4,7 @@
   <title><![CDATA[coding]]></title>
   <link href="http://blog.youngxiao.com/atom.xml" rel="self"/>
   <link href="http://blog.youngxiao.com/"/>
-  <updated>2020-06-01T21:13:09+08:00</updated>
+  <updated>2020-06-01T21:23:06+08:00</updated>
   <id>http://blog.youngxiao.com/</id>
   <author>
     <name><![CDATA[young]]></name>
@@ -519,6 +519,9 @@ max_interval(最大的 load balance 间隔),不同的domain里的参数并不相
 <p>我们常遇到的一个场景：现网环境gcc版本较低，新功能又需要上新gcc的特性，整体升级现网环境所有机器的gcc 不仅耗时且风险不可控。</p>
 
 <p><font color=red>把gcc新特性所依赖的所有东西 静态编译进应用程序，或者编译为一个so，是一个不错的解决办法</font>。</p>
+
+<!-- more -->
+
 
 <h2>原理</h2>
 
