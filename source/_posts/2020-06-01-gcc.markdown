@@ -1,0 +1,99 @@
+---
+layout: post
+title: "Linux Gcc版本升级问题"
+date: 2019-04-03 13:26:30 +0800
+comments: true
+categories: Linux
+tags: [linux, gcc, 升级]
+keywords: gcc 
+description: linux gcc版本升级 兼容
+---
+
+## 简要
+    我们常遇到的一个场景：现网环境gcc版本较低，新功能又需要上新gcc的特性，整体升级现网环境所有机器的gcc 不仅耗时且风险不可控。
+<font color=red>把gcc新特性所依赖的所有东西 静态编译进应用程序，或者编译为一个so，是一个不错的解决办法</font>。
+
+## 原理
+
+1. 首先我们需要确定我们编写的二进制程序会依赖哪些系统里的库？
+   
+   ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/ldd.png)
+
+    这里有三个库libc.so.6  libstdc++.so.6  libgcc_s.so.1 这些库是和gcc版本相关的
+
+    Libc.so这个库是做什么的呢?
+
+    简单理解，它里面就是我们所使用的c语言函数的实现，比如memcpy,memset,strlen等等，通过nm可以查看libc.so 里的符号
+
+    ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/libc.png)
+
+    为了做版本控制，so的这些函数都有一个版本号GLIBC_***, 通过strings可以查看，其中最大的数字代表这个so最大能兼容哪个版本！
+    
+    下图系统的GLIBC最大支持GLIBC2.12
+
+    ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/glbc.png)
+
+    <font color=red>我们可以查看应用程序使用的memcpy是GLIBC哪个版本？</font>
+
+    ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/memcpy.png)
+
+2. libc库可以静态编译进应用程序吗？
+   
+   libc.so和gcc版本没有直接关系，它是一个单独的库，linux系统很多基础命令都是由它提供，不同的内核版本的libc版本一般也不一致，有的系统的GLIBC最大支持2.17甚至更高.
+
+   libc库也有提供libc.a,如果系统里没有, 可以用 “yum install glibc-static” 来安装.
+
+   假如我们要编译一个so, 希望这个so可以部署到不同版本的系统中去，那这个libc可以使用静态库链接吗？
+
+   实际实验发现一个问题：在编译生成so时，采用-static静态编译,   即：g++ -shared –fPIC -o libgamecore.so –static  
+
+   意图：我要生成一个共享库，但是这个共享库里面不要引用其他共享库，引用的其他都采用静态链接。 
+
+   但是<font color=red>-shared 和 –static共同使用时</font>， gcc是有bug的，在gcc4.8.5这个问题依然存在。
+   参考这个帖子 https://bugzilla.redhat.com/show_bug.cgi?id=214465，
+   大致就是gcc里的一个静态库crtbeginT.o，它没有采用-fPIC编译，所以静态链接不了。
+
+   <font color=red>总结一下：libc库在编译二进制文件时，可采用-static静态链接,  但在制作so时，采用-static 并不能正常工作。</font>
+
+3. libstdc++.so.6  libgcc_s.so.1 可以静态编译进应用程序吗？
+   
+   这两个库就是随gcc版本而变动的库，它们里面就是C++的特性的实现，同样可以通过stings查看它们支持的版本：
+   gcc4.8.5支持到GLIBCXX_3.4.19 、GCC_4.8.0
+   
+   ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/glbcxx.png)
+   ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/gcc.png)
+
+   在GCC4.5版本以后 提供了两个编译选项 -static-libstdc++  -static-libgcc 它们会在链接时寻找libstdc++.a , libgcc.a静态链接，
+   如果系统里没有这两个库，可以通过yum install  libstdc++-static 来安装
+   这两个库的路径一般不在/lib64 /usr/lib64这种地方，它放在gcc的安装目录
+
+   ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/gcc_lib.png)
+   
+   通过gcc –v编译跟踪，我们可以看到编译链接时，除了/lib /usr/lib 这些系统路径外，还会去查找gcc的安装目录下的lib目录
+   比如：/usr/lib/gcc/x86_64-redhat-linux/4.4.6/ 这种目录。
+
+   假如我们的gcc安装在/usr/local/gcc-4.8.5/  则会去查找/usr/local/gcc-4.8.5/lib64/ 和 /usr/local/gcc-4.8.5/lib/gcc/x86_64-unknown-linux-gnu/4.8.5 最终会找到libgcc  和 libstdc++ 库.
+
+4. 实践
+   
+   业务需要编译一个so, 其中会用到gcc高版本的特性，这里我们假设为4.8.5版本. 
+
+   调用so的业务宿主程序使用4.4版本编译，且宿主程序和so的运行环境是4.4 
+
+   通过前面得知，编译so完全静态编译是行不通的，所以libc库没办法静态链入so里，所以一定会使用到libc.so。
+
+   所以我们的编译环境所使用的libc.so应该和运行环境的一致，不然可能会有GLIBC不兼容的问题，而libc.so又和系统版本绑定的。
+
+   而libgcc 和 libstdc++ 则可以通过静态链接gcc4.8.5的库来集成进so.
+
+   所以最优的解决办法: 
+   
+   用和运行环境相同的系统，在它基础上安装一个gcc4.8.5版本，通过--prefix=/usr/local/gcc-4.8.5来安装到特定目录，并不影响系统原有gcc，原有编译宿主程序的环境并不会受影响。
+
+   编译时：指定路径/usr/local/gcc-4.8.5/bin/g++来编译，通过前文知道 gcc会自动去搜寻gcc安装目录下的lib,所以我们也不需要去显示-L指定gcc4.8.5lib的位置，再结合-static-libstdc++  -static-libgcc静态编译，即解决了外网系统的兼容问题。
+
+   假如我们不适用静态编译，则用ldd查看，会引用/usr/lib64/libstdc++.so是gcc.4.4版本的，只能支持到GLIBCXX _3.4.13,而gamecore.so里显然不止。
+   ![](https://raw.githubusercontent.com/KeepMemoryAlive/KeepMemoryAlive.github.io/master/images/so.png)
+
+
+

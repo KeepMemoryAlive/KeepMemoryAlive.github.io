@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Linux 网络收包过程"
+title: "Linux 网卡收包过程"
 date: 2020-05-22 13:23:49 +0800
 comments: true
 categories: Linux
@@ -36,6 +36,7 @@ description: linux 网卡收包 中断分析
 6. 最后ksoftirqd程序处理softirq把数据包丢给内核协议栈
 
 整个过程中有几点需要注意:
+
 - 第2步中，不同的NIC可能拥有的队列数不一致，即常说的“<font color=red>网卡是否多队列</font>”，很明显队列越多 网卡性能越好.
 - <font color=red>每个队列对应一个IRQ中断号</font>, 比如八队列网卡，在/proc/interrupt里搜索eth相关即可得到8个中断号
 - Cpu从第4步处理IRQ开始参与，根据中断号n, 在/proc/irq/n/smp_affinity中可以查看 该中断由哪些cpu处理
